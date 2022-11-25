@@ -1,6 +1,6 @@
 <?php
     // Test connexion
-    require("./class/Connexion.php");
+    require("./model/Connexion.php");
     $dsn = "mysql:host=localhost;dbname=todolist";
     $user = "root";
     $pass = "loris";
@@ -11,14 +11,14 @@
     }
 
     // Test ListTask et ListTaskGateway
-    require("./class/ListTask.php");
+    require("./model/ListTask.php");
     require("./gateWay/ListTaskGateway.php");
     $gatewayList = new ListTaskGateway($connexion);
     //$gatewayList->insert("Maison", 1, true);
     //$gatewayList->insert("Devoir", 1);
 
     // Test Task et TaskGateway
-    require("./class/Task.php");
+    require("./model/Task.php");
     require("./gateWay/TaskGateway.php");
     $gatewayTask = new TaskGateway($connexion);
     $gatewayTask->insert("Repas", "Faire à manger", 1);
