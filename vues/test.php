@@ -14,12 +14,44 @@
     require("./model/ListTask.php");
     require("./gateWay/ListTaskGateway.php");
     $gatewayList = new ListTaskGateway($connexion);
-    //$gatewayList->insert("Maison", 1, true);
-    //$gatewayList->insert("Devoir", 1);
+    //try {
+    //    $gatewayList->insert("Maison", 1, true);
+    //} catch (PDOException $e){
+    //    echo '<script type="text/javascript">';
+    //    echo ' alert("This list already exist")';
+    //    echo '</script>';
+    //}
+    //try {
+    //    $gatewayList->insert("Devoir", 1);
+    //} catch (PDOException $e){
+    //    echo '<script type="text/javascript">';
+    //    echo ' alert("This list already exist")';
+    //    echo '</script>';
+    //}
 
     // Test Task et TaskGateway
     require("./model/Task.php");
     require("./gateWay/TaskGateway.php");
     $gatewayTask = new TaskGateway($connexion);
-    $gatewayTask->insert("Repas", "Faire à manger", 1);
+    //try {
+    //    $gatewayTask->insert("Repas", "Faire à manger", 1);
+    //} catch (PDOException $e) {
+    //    echo '<script type="text/javascript">';
+    //    echo ' alert("This list already exist")';
+    //    echo '</script>';
+    //}
+    //try {
+    //    $gatewayTask->insert("Faire les courses", "Acheter du lait et revenir", 1);
+    //} catch (PDOException $e) {
+    //    echo '<script type="text/javascript">';
+    //    echo ' alert("This list already exist")';
+    //    echo '</script>';
+    //}
+
+    $Tab = $gatewayList->getTask(1);
+    foreach ($Tab as $item) {
+        echo "<p>".$item->getName()."</p>";
+    }
+
+    $gatewayList->delete(1);
 ?>
