@@ -8,6 +8,20 @@ class Task
     private $idList;
 
     /**
+     * @param $name
+     * @param $description
+     * @param $done
+     * @param $idList
+     */
+    public function __construct($name, $description, $done, $idList)
+    {
+        $this->name = $name;
+        $this->description = $description;
+        $this->done = $done;
+        $this->idList = $idList;
+    }
+
+    /**
      * @return mixed
      */
     public function getName()
