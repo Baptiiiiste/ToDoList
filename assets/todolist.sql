@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mer. 23 nov. 2022 à 18:00
+-- Généré le : ven. 25 nov. 2022 à 10:53
 -- Version du serveur : 5.7.36
 -- Version de PHP : 7.4.26
 
@@ -30,21 +30,19 @@ SET time_zone = "+00:00";
 DROP TABLE IF EXISTS `listtask`;
 CREATE TABLE IF NOT EXISTS `listtask` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) NOT NULL,
+  `name` varchar(50) COLLATE utf8_bin NOT NULL,
   `visibility` tinyint(1) NOT NULL DEFAULT '0',
   `owner` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `name` (`name`),
-  KEY `fk_owner` (`owner`)
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+  KEY `owner` (`owner`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Déchargement des données de la table `listtask`
 --
 
 INSERT INTO `listtask` (`id`, `name`, `visibility`, `owner`) VALUES
-(9, 'Maison', 1, 1),
-(10, 'Devoir', 0, 1);
+(2, 'Devoir', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -55,21 +53,13 @@ INSERT INTO `listtask` (`id`, `name`, `visibility`, `owner`) VALUES
 DROP TABLE IF EXISTS `task`;
 CREATE TABLE IF NOT EXISTS `task` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) NOT NULL,
-  `description` varchar(250) NOT NULL,
+  `name` varchar(50) COLLATE utf8_bin NOT NULL,
+  `description` varchar(255) COLLATE utf8_bin NOT NULL,
   `done` tinyint(1) NOT NULL DEFAULT '0',
   `listTask` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `name` (`name`),
-  KEY `fk_listTask` (`listTask`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
-
---
--- Déchargement des données de la table `task`
---
-
-INSERT INTO `task` (`id`, `name`, `description`, `done`, `listTask`) VALUES
-(1, 'Repas', 'Faire Ã  manger', 0, 0);
+  KEY `listTask` (`listTask`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
 
@@ -80,10 +70,20 @@ INSERT INTO `task` (`id`, `name`, `description`, `done`, `listTask`) VALUES
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE IF NOT EXISTS `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `pseudo` int(11) NOT NULL,
-  `email` int(11) NOT NULL,
+  `pseudo` varchar(50) COLLATE utf8_bin NOT NULL,
+  `email` varchar(100) COLLATE utf8_bin NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Contraintes pour les tables déchargées
+--
+
+--
+-- Contraintes pour la table `task`
+--
+ALTER TABLE `task`
+  ADD CONSTRAINT `listTask` FOREIGN KEY (`listTask`) REFERENCES `listtask` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
