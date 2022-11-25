@@ -3,7 +3,7 @@
 class ListTaskGateway
 {
     private $con;
-    public function __construct(Connection	$con) {
+    public function __construct(Connection $con) {
         $this->con = $con;
     }
 
@@ -18,8 +18,14 @@ class ListTaskGateway
         }
     }
 
-    public function delete(int $id){
-        $query = 'DELETE FROM ListTask WHERE id=:id';
-        $this->con->executeQuery($query, array(':id' => array(id, PDO::PARAM_INT)));
+    public function delete(int $name){
+        $query = 'DELETE FROM ListTask WHERE name=:name';
+        try{
+            $this->con->executeQuery($query, array(':name' => array(name, PDO::PARAM_STR)));
+        } catch (PDOException $e){
+            echo '<script type="text/javascript">';
+            echo ' alert("This list doesn`t exist")';
+            echo '</script>';
+        } 
     }
 }

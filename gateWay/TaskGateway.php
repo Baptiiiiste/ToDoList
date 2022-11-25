@@ -18,8 +18,14 @@ class TaskGateway
         }
     }
 
-    public function delete(int $id){
-        $query = 'DELETE FROM Task WHERE id=:id';
-        $this->con->executeQuery($query, array(':id' => array(id, PDO::PARAM_INT)));
+    public function delete(int $name){
+        $query = 'DELETE FROM Task WHERE name=:name';
+        try{
+            $this->con->executeQuery($query, array(':name' => array(name, PDO::PARAM_STR)));
+        } catch (PDOException $e){
+            echo '<script type="text/javascript">';
+            echo ' alert("This task doesn`t exist")';
+            echo '</script>';
+        } 
     }
 }
