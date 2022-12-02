@@ -11,9 +11,9 @@ $rep=__DIR__.'/../';
 
 //BD
 
-$base = "mysql:host=localhost;dbname=todolist";
-$login = "root";
-$mdp = "loris";
+$base = "mysql:host=londres.uca.local;dbname=todolist";
+$login = "babonneau";
+$mdp = "achanger";
 
 //Vues
 

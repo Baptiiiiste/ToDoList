@@ -1,7 +1,8 @@
 <?php
 
-class Controleur{
+class ControleurPublic{
     public function __construct(){
+        global $rep,$vues;
 
         session_start();
 
@@ -11,15 +12,17 @@ class Controleur{
             $action = $_REQUEST['action'];
             switch($action){
                 case NULL:
-                    $this->Reinitialiser();
+                    // afficher les todolist publiques
                     break;
-                case "validationFormulaire":
-                    echo "<p>coucou</p>";
-                    //$this->ValidationFormulaire($TabVueEreur);
+                case "addTDL":
+                    // afficher une todolist
+                    break;
+                case "deleteTDL":
+                    // delete tdl
                     break;
                 default:
-                    $TabVueEreur[] = "Erreur lors de la récupération du formulaire";
-                    require ("../vues/home.php");
+                    $TabVueEreur[] = "Une erreur est survenue";
+                    require($rep.$vues['erreur.php']);
                     break;
             }
         }catch (PDOException $e)
@@ -37,15 +40,7 @@ class Controleur{
     }
 
 
-    function Reinitialiser() {
 
-        $dVue = array (
-            'name' => "",
-            'description' => "",
-            'done' => false,
-        );
-        require ("../vues/home.php");
-    }
 
     function ValidationFormulaire(array $TabVueEreur) {
 
@@ -64,5 +59,9 @@ class Controleur{
         require ("../vues/home.php");
     }
 
+
+    function showTDL(){
+
+    }
 
 }
