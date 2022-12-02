@@ -1,6 +1,6 @@
 <?php
     // Test connexion
-    require("./model/Connexion.php");
+    require("./model/Connection.php");
     $dsn = "mysql:host=localhost;dbname=todolist";
     $user = "root";
     $pass = "loris";
