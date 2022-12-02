@@ -18,6 +18,7 @@ class ListTaskGateway
     }
 
     public function getTask(int $id){
+        $tab = [];
         $query = 'SELECT name, description, done, listTask FROM Task WHERE listTask=:id';
         $this->con->executeQuery($query, array(':id' => array($id, PDO::PARAM_INT)));
 
@@ -28,26 +29,14 @@ class ListTaskGateway
         return $tab;
     }
 
-    public function getPublicTDL(int $owner) {
-        $tab[] = [];
+    public function getListTask(int $owner, int $visibility) {
+        $tab = [];
         $query = 'SELECT id, name, visibility, owner FROM ListTask WHERE visibility = :visibility AND owner = :owner';
-        $this->con->executeQuery($query, array(':visibility' => array("true", PDO::PARAM_BOOL), ':owner' => array($owner, PDO::PARAM_INT)));
+        $this->con->executeQuery($query, array(':visibility' => array($visibility, PDO::PARAM_INT), ':owner' => array($owner, PDO::PARAM_INT)));
 
         $result = $this->con->getResults();
         foreach ($result as $item) {
-            $tabTask[] = $this->getTask($item['id']);
-            $tab[] = new ListTask($item['name'], $item['visibility'], $item['owner'], $tabTask);
-        }
-        return $tab;
-    }
-
-    public function getPrivateTDL(int $owner) {
-        $query = 'SELECT id, name, visibility, owner FROM ListTask WHERE visibility = :visibility AND owner = :owner';
-        $this->con->executeQuery($query, array(':visibility' => array("false", PDO::PARAM_BOOL), ':owner' => array($owner, PDO::PARAM_INT)));
-
-        $result = $this->con->getResults();
-        foreach ($result as $item) {
-            $tabTask[] = $this->getTask($item['id']);
+            $tabTask = $this->getTask($item['id']);
             $tab[] = new ListTask($item['name'], $item['visibility'], $item['owner'], $tabTask);
         }
         return $tab;

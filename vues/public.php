@@ -20,7 +20,7 @@
     <?php
 
     foreach ($listTDL as $value){
-        require ("./todolist.php");
+        require ("vues/todolist.php");
     }
 
     ?>

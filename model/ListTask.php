@@ -2,7 +2,7 @@
 
 class ListTask
 {
-    private $name;
+    public $name;
     private $visibility;
     private $owner;
     private $tabTask = [];

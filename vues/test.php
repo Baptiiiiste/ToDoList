@@ -1,6 +1,6 @@
 <?php
     // Test connexion
-    require("./model/Connection.php");
+    require("../model/Connection.php");
     $dsn = "mysql:host=localhost;dbname=todolist";
     $user = "root";
     $pass = "loris";
@@ -11,8 +11,8 @@
     }
 
     // Test ListTask et ListTaskGateway
-    require("./model/ListTask.php");
-    require("./gateWay/ListTaskGateway.php");
+    require("../model/ListTask.php");
+    require("../gateWay/ListTaskGateway.php");
     $gatewayList = new ListTaskGateway($connexion);
     //try {
     //    $gatewayList->insert("Maison", 1, true);
@@ -30,8 +30,8 @@
     //}
 
     // Test Task et TaskGateway
-    require("./model/Task.php");
-    require("./gateWay/TaskGateway.php");
+    require("../model/Task.php");
+    require("../gateWay/TaskGateway.php");
     $gatewayTask = new TaskGateway($connexion);
     //try {
     //    $gatewayTask->insert("Repas", "Faire à manger", 1);
@@ -48,10 +48,15 @@
     //    echo '</script>';
     //}
 
-    $Tab = $gatewayList->getTask(1);
+    $Tab = $gatewayList->getTask(3);
     foreach ($Tab as $item) {
         echo "<p>".$item->getName()."</p>";
     }
 
-    $gatewayList->delete(1);
+    $tabListTask = $gatewayList->getListTask(1, 0);
+    foreach ($tabListTask as $value) {
+        echo "<p>".$value->getName()."</p>";
+    }
+
+    //$gatewayList->delete(1);
 ?>

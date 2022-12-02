@@ -48,7 +48,7 @@ class ControleurPublic{
     function showTDL(){
         global $rep,$vues;
         $tdl = new ModelTodoList();
-        $listTDL = $tdl->getAllTDL();
+        $listTDL = $tdl->getAllTDL(1);
         require($rep.$vues['public']);
     }
 
@@ -61,7 +61,7 @@ class ControleurPublic{
         //Validation::val_form($name, true, $tabVueEreur);
 
         $tdl = new ModelTodoList();
-        $tdl->addTDL(name, true, $owner);
+        $tdl->addTDL($name, true, $owner);
     }
 
     function deleteTDL(){

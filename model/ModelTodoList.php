@@ -5,12 +5,12 @@ class ModelTodoList
 
     public function __construct(){}
 
-    function getAllTDL(string $visibility = "public") {
+    function getAllTDL(int $owner, string $visibility = "public") {
         $gateway = new ListTaskGateway(new Connection("mysql:host=localhost;dbname=todolist", "root", "loris"));
         if($visibility == "public"){
-            $tabListTask = $gateway->getPublicTDL("1");
+            $tabListTask = $gateway->getListTask($owner, 1);
         } else {
-            $tabListTask = $gateway->getPrivateTDL("1");
+            $tabListTask = $gateway->getListTask($owner, 0);
         }
         return $tabListTask;
     }
