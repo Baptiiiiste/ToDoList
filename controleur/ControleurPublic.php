@@ -51,13 +51,12 @@ class ControleurPublic{
         global $rep,$vues;
 
         $name = $_GET['name'];
-        $visibility = $_GET['visibility'];
         $owner = $_GET['owner'];
 
-        Validation::val_form($name, $visibility, $tabVueEreur);
+        //Validation::val_form($name, true, $tabVueEreur);
 
         $tdl = new ModelTodoList();
-        $tdl->addTDL(name, $visibility, $owner);
+        $tdl->addTDL(name, true, $owner);
     }
 
     function deleteTDL(){
