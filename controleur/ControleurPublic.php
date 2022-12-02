@@ -28,40 +28,37 @@ class ControleurPublic{
         }catch (PDOException $e)
         {
             $TabVueEreur[] = "Erreur lors de la communication avec la base de données";
-            require ("../vues/home.php");
+            require($rep.$vues['index']);
 
         }
         catch (Exception $e2)
         {
             $TabVueEreur[] = "Une erreur est survenue, re-essayez plus tard";
-            require ("../vues/home.php");
+            require($rep.$vues['index']);
+
         }
         exit(0);
     }
 
-
-
-
-    function ValidationFormulaire(array $TabVueEreur) {
-
-        $nom=$_POST['nom'];
-        $age=$_POST['description'];
-        Validation::val_form($nom,$age,$TabVueEreur);
-
-        //$model = new Simplemodel();
-        //$data=$model->get_data();
-
-        $dVue = array (
-            'name' => "",
-            'description' => "",
-            'done' => false,
-        );
-        require ("../vues/home.php");
+    function showTDL(){
+        global $rep,$vues;
+        $tdl = new ModelTodoList();
+        $listTDL = $tdl.getAllTDL();
+        require($rep.$vues['public']);
     }
 
+    function validerAjoutTDL(array $tabVueEreur){
+        global $rep,$vues;
+        $name = $_GET['name'];
+        $visibility = $_GET['visibility'];
+        $owner = $_GET['owner'];
+        Validation::val_form($name, $visibility, $tabVueEreur);
+        $tdl = new ModelTodoList();
+        $tdl->addTDL(name, $visibility, $owner);
+    }
 
-    function showTDL(){
-
+    function deleteTDL(){
+        global $rep,$vues;
     }
 
 }
