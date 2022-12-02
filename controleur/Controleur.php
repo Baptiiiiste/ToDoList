@@ -1,15 +1,16 @@
 <?php
 
 class Controleur{
-    public function __construct(){
+    public function __construct()
+    {
 
         session_start();
 
         $TabVueEreur = array();
 
-        try{
+        try {
             $action = $_REQUEST['action'];
-            switch($action){
+            switch ($action) {
                 case NULL:
                     $this->Reinitialiser();
                     break;
@@ -19,19 +20,16 @@ class Controleur{
                     break;
                 default:
                     $TabVueEreur[] = "Erreur lors de la récupération du formulaire";
-                    require ("../vues/home.php");
+                    require("../vues/home.php");
                     break;
             }
-        }catch (PDOException $e)
-        {
+        } catch (PDOException $e) {
             $TabVueEreur[] = "Erreur lors de la communication avec la base de données";
-            require ("../vues/home.php");
+            require("../vues/home.php");
 
-        }
-        catch (Exception $e2)
-        {
+        } catch (Exception $e2) {
             $TabVueEreur[] = "Une erreur est survenue, re-essayez plus tard";
-            require ("../vues/home.php");
+            require("../vues/home.php");
         }
         exit(0);
     }
