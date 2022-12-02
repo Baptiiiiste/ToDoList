@@ -9,7 +9,12 @@ class ControleurPublic{
         $TabVueEreur = array();
 
         try{
-            $action = $_REQUEST['action'];
+            if(isset($_REQUEST['action'])) {
+                $action = $_REQUEST['action'];
+            } else {
+                $action = NULL;
+            }
+
             switch($action){
                 case NULL:
                     $this->showTDL();

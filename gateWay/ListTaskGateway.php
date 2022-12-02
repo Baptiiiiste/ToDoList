@@ -29,6 +29,7 @@ class ListTaskGateway
     }
 
     public function getPublicTDL(int $owner) {
+        $tab[] = [];
         $query = 'SELECT id, name, visibility, owner FROM ListTask WHERE visibility = :visibility AND owner = :owner';
         $this->con->executeQuery($query, array(':visibility' => array("true", PDO::PARAM_BOOL), ':owner' => array($owner, PDO::PARAM_INT)));
 

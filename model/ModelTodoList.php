@@ -6,11 +6,11 @@ class ModelTodoList
     public function __construct(){}
 
     function getAllTDL(string $visibility = "public") {
-        $gateway = new ListTaskGateway(new Connection("mysql:host=londres.uca.local;dbname=todolist", "babonneau", "achanger"));
+        $gateway = new ListTaskGateway(new Connection("mysql:host=localhost;dbname=todolist", "root", "loris"));
         if($visibility == "public"){
-            $tabListTask = $gateway->getPublicTDL();
+            $tabListTask = $gateway->getPublicTDL("1");
         } else {
-            $tabListTask = $gateway->getPrivateTDL();
+            $tabListTask = $gateway->getPrivateTDL("1");
         }
         return $tabListTask;
     }
