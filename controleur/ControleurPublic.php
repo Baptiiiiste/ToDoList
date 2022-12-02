@@ -54,7 +54,7 @@ class ControleurPublic{
         $owner = $_GET['owner'];
         Validation::val_form($name, $visibility, $tabVueEreur);
         $tdl = new ModelTodoList();
-        $tdl->addTDL(name, $visibility, $owner);
+        $tdl->addTDL($name, $visibility, $owner);
     }
 
     function deleteTDL(){
