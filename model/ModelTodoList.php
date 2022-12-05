@@ -20,12 +20,7 @@ class ModelTodoList
         return -1;
     }
 
-    function addPublicTDL(Connection $con, string $name, int $owner){
-        $gateway = new ListTaskGateway($con);
-        $gateway->insert($name, $owner);
-    }
-
-    function addPrivateTDL(Connection $con, string $name, int $owner, bool $visibility){
+    function addTDL(Connection $con, string $name, int $owner, bool $visibility){
         $gateway = new ListTaskGateway($con);
         $gateway->insert($name, $owner, $visibility);
     }

@@ -1,4 +1,4 @@
-<div class="card px-3 mb-4">
+<div class="card px-3 mb-'">
     <div class="card-body">
         <?php
             echo '<h4 class="card-title">'. $value->getName() .'</h4>';
