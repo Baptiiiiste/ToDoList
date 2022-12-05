@@ -33,13 +33,13 @@ class ControleurPublic{
         }catch (PDOException $e)
         {
             $TabVueEreur[] = "Erreur lors de la communication avec la base de données";
-            require($rep.$vues['public']);
+            require($rep.$vues['home']);
 
         }
         catch (Exception $e2)
         {
             $TabVueEreur[] = "Une erreur est survenue, re-essayez plus tard";
-            require($rep.$vues['public']);
+            require($rep.$vues['home']);
 
         }
         exit(0);
@@ -49,7 +49,7 @@ class ControleurPublic{
         global $rep,$vues;
         $tdl = new ModelTodoList();
         $listTDL = $tdl->getAllTDL(1);
-        require($rep.$vues['public']);
+        require($rep.$vues['home']);
     }
 
     function validerAjoutTDL(array $tabVueEreur){

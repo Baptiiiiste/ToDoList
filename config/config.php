@@ -20,6 +20,7 @@ $mdp = "achanger";
 $vues['erreur']='vues/erreur.php';
 $vues['index']='index.php';
 $vues['public']='vues/public.php';
+$vues['home']='vues/home.php';
 
 
 ?>

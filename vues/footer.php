@@ -7,7 +7,6 @@
     </a>
 
     <ul class="nav col-md-4 justify-content-end">
-        <li class="nav-item"><a href="index.php" class="nav-link px-2 text-muted">Public</a></li>
-        <li class="nav-item"><a href="index.php?action=private" class="nav-link px-2 text-muted">Private</a></li>
+        <li class="nav-item"><a href="index.php" class="nav-link px-2 text-muted">Home</a></li>
     </ul>
 </footer>
