@@ -17,14 +17,17 @@ require("vues/header.php")
 <!-- =================================================================================== -->
 <!-- =================================================================================== -->
 
-<div class="d-flex flex-row justify-content-between">
-    <div class="flex-column w-50 m-5">
+<div class="d-flex flex-row justify-content-between" style="height: 100%">
+    <div class="d-flex flex-column w-50 m-5 align-items-center">
         <h3> Todo List Public</h3>
         <?php
         require ("vues/public.php");
         ?>
     </div>
-    <div class="flex-column w-50 m-5">
+    <div class="bg-black" style="width: 1px">
+
+    </div>
+    <div class="d-flex flex-column w-50 m-5 align-items-center">
         <h3> Todo List Private</h3>
         <?php
         require ("vues/private.php");

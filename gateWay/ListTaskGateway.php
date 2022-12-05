@@ -29,10 +29,23 @@ class ListTaskGateway
         return $tab;
     }
 
-    public function getListTask(int $owner, int $visibility) {
+    public function getPublicList(){
+        $tab = [];
+        $query = 'SELECT id, name, visibility, owner FROM ListTask WHERE visibility = :visibility';
+        $this->con->executeQuery($query, array(':visibility' => array(1, PDO::PARAM_INT)));
+
+        $result = $this->con->getResults();
+        foreach ($result as $item) {
+            $tabTask = $this->getTask($item['id']);
+            $tab[] = new ListTask($item['name'], $item['visibility'], $item['owner'], $tabTask);
+        }
+        return $tab;
+    }
+
+    public function getPrivateList(int $owner){
         $tab = [];
         $query = 'SELECT id, name, visibility, owner FROM ListTask WHERE visibility = :visibility AND owner = :owner';
-        $this->con->executeQuery($query, array(':visibility' => array($visibility, PDO::PARAM_INT), ':owner' => array($owner, PDO::PARAM_INT)));
+        $this->con->executeQuery($query, array(':visibility' => array(0, PDO::PARAM_INT), ':owner' => array($owner, PDO::PARAM_INT)));
 
         $result = $this->con->getResults();
         foreach ($result as $item) {

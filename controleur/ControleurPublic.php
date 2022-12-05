@@ -48,7 +48,10 @@ class ControleurPublic{
     function showTDL(){
         global $rep,$vues;
         $tdl = new ModelTodoList();
-        $listTDL = $tdl->getAllTDL(1);
+        $user = $tdl->getConnectedUser();
+        $user = 1;
+        $listTDLPublic = $tdl->getAllTDL('public');
+        $listTDLPrivate = $tdl->getAllTDL('private', $user);
         require($rep.$vues['home']);
     }
 
