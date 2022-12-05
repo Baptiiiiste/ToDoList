@@ -5,8 +5,8 @@ class ModelTodoList
 
     public function __construct(){}
 
-    function getAllTDL(string $visibility, int $owner = -1) {
-        $gateway = new ListTaskGateway(new Connection("mysql:host=localhost;dbname=todolist", "root", "loris"));
+    function getAllTDL(Connection $con, string $visibility, int $owner = -1) {
+        $gateway = new ListTaskGateway($con);
         if($visibility == 'public'){
             return $gateway->getPublicList();
         }
@@ -16,32 +16,32 @@ class ModelTodoList
         return $gateway->getPrivateList($owner);
     }
 
-    function getConnectedUser(){
+    function getConnectedUser(Connection $con){
         return -1;
     }
 
-    function addPublicTDL(string $name, int $owner){
-        $gateway = new ListTaskGateway(new Connection("mysql:host=localhost;dbname=todolist", "root", "loris"));
+    function addPublicTDL(Connection $con, string $name, int $owner){
+        $gateway = new ListTaskGateway($con);
         $gateway->insert($name, $owner);
     }
 
-    function addPrivateTDL(string $name, int $owner, bool $visibility){
-        $gateway = new ListTaskGateway(new Connection("mysql:host=localhost;dbname=todolist", "root", "loris"));
+    function addPrivateTDL(Connection $con, string $name, int $owner, bool $visibility){
+        $gateway = new ListTaskGateway($con);
         $gateway->insert($name, $owner, $visibility);
     }
 
-    function addTask(string $name, string $description, int $listTask){
-        $gateway = new TaskGateway(new Connection("mysql:host=localhost;dbname=todolist", "root", "loris"));
+    function addTask(Connection $con, string $name, string $description, int $listTask){
+        $gateway = new TaskGateway($con);
         $gateway->insert($name, $description, $listTask);
     }
 
-    function deleteTDL(int $id){
-        $gateway = new ListTaskGateway(new Connection("mysql:host=localhost;dbname=todolist", "root", "loris"));
+    function deleteTDL(Connection $con, int $id){
+        $gateway = new ListTaskGateway($con);
         $gateway->delete($id);
     }
 
-    function deleteTask(int $id){
-        $gateway = new TaskGateway(new Connection("mysql:host=localhost;dbname=todolist", "root", "loris"));
+    function deleteTask(Connection $con, int $id){
+        $gateway = new TaskGateway($con);
         $gateway->delete($id);
     }
 }

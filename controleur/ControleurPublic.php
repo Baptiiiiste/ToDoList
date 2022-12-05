@@ -2,11 +2,12 @@
 
 class ControleurPublic{
     public function __construct(){
-        global $rep,$vues;
+        global $rep,$vues, $base, $login, $mdp;
 
         session_start();
 
         $TabVueEreur = array();
+        $con = new Connection($base, $login, $mdp);
 
         try{
             if(isset($_REQUEST['action'])) {
@@ -17,7 +18,7 @@ class ControleurPublic{
 
             switch($action){
                 case NULL:
-                    $this->showTDL();
+                    $this->showTDL($con);
                     break;
                 case "addTDL":
                     // afficher une todolist
@@ -45,13 +46,13 @@ class ControleurPublic{
         exit(0);
     }
 
-    function showTDL(){
+    function showTDL(Connection $con){
         global $rep,$vues;
         $tdl = new ModelTodoList();
-        $user = $tdl->getConnectedUser();
+        $user = $tdl->getConnectedUser($con);
         $user = 1;
-        $listTDLPublic = $tdl->getAllTDL('public');
-        $listTDLPrivate = $tdl->getAllTDL('private', $user);
+        $listTDLPublic = $tdl->getAllTDL($con, 'public');
+        $listTDLPrivate = $tdl->getAllTDL($con, 'private', $user);
         require($rep.$vues['home']);
     }
 
