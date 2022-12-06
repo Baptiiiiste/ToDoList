@@ -20,9 +20,20 @@ class ControllerPublic{
                     break;
                 case "addPublicTDL":
                     $name = Validation::val_string($_POST['namePublicTDL']);
+                    $this->addPublicTDL($con, $name);
+                    $this->showTDLPublic($con);
                     break;
                 case "deletePublicTDL":
-                    // delete tdl
+                    $name = Validation::val_string($_REQUEST['index']);
+                    $this->deletePublicTDL($con, $name);
+                    $this->showTDLPublic($con);
+                    break;
+                case "addPublicTask":
+                    $name = Validation::val_string($_POST['namePublicTask']);
+                    $description = Validation::val_string($_POST['descriptionPublicTask']);
+                    $listTask = Validation::val_string($_REQUEST['index']);
+                    $this->addPublicTask($con, $name, $description, $listTask);
+                    $this->showTDLPublic($con);
                     break;
                 case "login":
                     require($rep.$vues['loginFormUser']);
@@ -35,14 +46,13 @@ class ControllerPublic{
         }catch (PDOException $e)
         {
             $TabVueEreur[] = "Erreur lors de la communication avec la base de données";
-            require($rep.$vues['public']);
+            require($rep.$vues['erreur']);
 
         }
         catch (Exception $e2)
         {
             $TabVueEreur[] = "Une erreur est survenue, re-essayez plus tard";
-            require($rep.$vues['public']);
-
+            require($rep.$vues['erreur']);
         }
         exit(0);
     }
@@ -56,20 +66,27 @@ class ControllerPublic{
         require($rep.$vues['public']);
     }
 
-    function validerAjoutTDL(array $tabVueEreur){
-        global $rep,$vues;
-
-        $name = $_GET['name'];
-        $owner = $_GET['owner'];
-
-        //Validation::val_form($name, true, $tabVueEreur);
-
+    function addPublicTDL(Connection $con, string $name){
+        //$owner = Validation::val_string($_SESSION['login']);
+        //if($owner == "" || $name == ""){
+        //    throw new Exception("error add todolist");
+        //}
         $tdl = new ModelTodoList();
-        $tdl->addTDL($name, true, $owner);
+        $tdl->addTDL($con, $name, 'loris', true);
     }
 
-    function deleteTDL(){
-        global $rep,$vues;
+    function deletePublicTDL(Connection $con, string $name){
+        //$owner = Validation::val_string($_SESSION['login']);
+        //if($owner == "" || $name == ""){
+        //    throw new Exception("error add todolist");
+        //}
+        $tdl = new ModelTodoList();
+        $tdl->deleteTDL($con, $name, 'loris', true);
+    }
+
+    function addPublicTask(Connection $con, string $name, string $description, string $listTask){
+        $tdl = new ModelTodoList();
+        $tdl->addTask($con, $name, $description, $listTask);
     }
 
 }
