@@ -19,7 +19,8 @@ $mdp = "";
 $vues['erreur']='vues/erreur.php';
 $vues['index']='index.php';
 $vues['public']='vues/public.php';
-$vues['home']='vues/home.php';
+$vues['private']='vues/private.php';
+$vues['loginFormUser']='vues/loginFormUser.php';
 
 
 ?>

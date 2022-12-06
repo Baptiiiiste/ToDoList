@@ -7,7 +7,6 @@
     <title>TUDUM List</title>
     <link rel="stylesheet" href="../css/globals.css">
 </head>
-
 <body>
 <?php
 require("vues/header.php")
@@ -17,40 +16,23 @@ require("vues/header.php")
 <!-- =================================================================================== -->
 <!-- =================================================================================== -->
 
-<div class="d-flex flex-row justify-content-center p-4 border-bottom">
-    <form class="add-items d-flex" method="post">
-        <input type="text" name="nom" class="form-control todo-list-input" placeholder="Name" style="margin-right: 5px">
-        <select class="form-select" aria-label="Default select example" style="margin-right: 5px">
-            <option value="1">Public</option>
-            <option value="0">Private</option>
-        </select>
-        <input type="hidden" name="action" value="validationFormulaire">
-        <a href="index.php?action=addTDL" class="add btn btn-primary font-weight-bold todo-list-add-btn">Add</a>
+<div class="d-flex flex-column align-items-center mt-5">
+    <form class="w-25">
+        <div class="form-group mt-3">
+            <label for="exampleInputLogin1">Login</label>
+            <input type="login" class="form-control" id="exampleInputLogin1" placeholder="Enter login">
+        </div>
+        <div class="form-group mt-3">
+            <label for="exampleInputPassword1">Password</label>
+            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+        </div>
+        <button type="submit" class="btn btn-primary mt-3">Submit</button>
     </form>
 </div>
 
-<div class="d-flex flex-row justify-content-between" style="height: 100%">
-    <div class="d-flex flex-column w-50 m-5 align-items-center">
-        <h3> Todo List Public</h3>
-        <?php
-        require ("vues/public.php");
-        ?>
-    </div>
-    <div class="bg-black" style="width: 1px">
-
-    </div>
-    <div class="d-flex flex-column w-50 m-5 align-items-center">
-        <h3> Todo List Private</h3>
-        <?php
-        require ("vues/private.php");
-        ?>
-    </div>
-</div>
-
 <!-- =================================================================================== -->
 <!-- =================================================================================== -->
 <!-- =================================================================================== -->
-
 
 <?php
 require("vues/footer.php")
