@@ -5,12 +5,13 @@ class ModelTodoList
 
     public function __construct(){}
 
-    function getAllTDL(Connection $con, string $visibility, int $owner = -1) {
+    function getAllTDL(Connection $con, string $visibility, string $owner = "") {
         $gateway = new ListTaskGateway($con);
+
         if($visibility == 'public'){
             return $gateway->getPublicList();
         }
-        if($owner == -1){
+        if($owner == ""){
             return -1;
         }
         return $gateway->getPrivateList($owner);
@@ -20,23 +21,23 @@ class ModelTodoList
         return -1;
     }
 
-    function addTDL(Connection $con, string $name, int $owner, bool $visibility){
+    function addTDL(Connection $con, string $name, string $owner, bool $visibility){
         $gateway = new ListTaskGateway($con);
         $gateway->insert($name, $owner, $visibility);
     }
 
-    function addTask(Connection $con, string $name, string $description, int $listTask){
+    function addTask(Connection $con, string $name, string $description, string $listTask){
         $gateway = new TaskGateway($con);
         $gateway->insert($name, $description, $listTask);
     }
 
-    function deleteTDL(Connection $con, int $id){
+    function deleteTDL(Connection $con, string $name){
         $gateway = new ListTaskGateway($con);
-        $gateway->delete($id);
+        $gateway->delete($name);
     }
 
-    function deleteTask(Connection $con, int $id){
+    function deleteTask(Connection $con, string $name){
         $gateway = new TaskGateway($con);
-        $gateway->delete($id);
+        $gateway->delete($name);
     }
 }

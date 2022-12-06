@@ -7,20 +7,21 @@ class ListTaskGateway
         $this->con = $con;
     }
 
-    public function insert(string $name, int $owner, bool $visibility = false) {
+    public function insert(string $name, string $owner, bool $visibility) {
         $query = 'INSERT INTO ListTask (name, owner, visibility) VALUES (:name, :owner, :visibility)';
-        $this->con->executeQuery($query, array(':name' => array($name, PDO::PARAM_STR), ':owner' => array($owner, PDO::PARAM_INT), ':visibility' => array($visibility, PDO::PARAM_BOOL)));
+        $this->con->executeQuery($query, array(':name' => array($name, PDO::PARAM_STR), ':owner' => array($owner, PDO::PARAM_STR), ':visibility' => array($visibility, PDO::PARAM_BOOL)));
+        echo 'oui';
     }
 
-    public function delete(int $id){
-        $query = 'DELETE FROM ListTask WHERE id=:id';
-        $this->con->executeQuery($query, array(':id' => array($id, PDO::PARAM_STR)));
+    public function delete(string $name){
+        $query = 'DELETE FROM ListTask WHERE name=:name';
+        $this->con->executeQuery($query, array(':name' => array($name, PDO::PARAM_STR)));
     }
 
-    public function getTask(int $id){
+    public function getTask(string $name){
         $tab = [];
-        $query = 'SELECT name, description, done, listTask FROM Task WHERE listTask=:id';
-        $this->con->executeQuery($query, array(':id' => array($id, PDO::PARAM_INT)));
+        $query = 'SELECT name, description, done, listTask FROM Task WHERE listTask=:name';
+        $this->con->executeQuery($query, array(':name' => array($name, PDO::PARAM_STR)));
 
         $result = $this->con->getResults();
         foreach ($result as $item) {
@@ -31,25 +32,25 @@ class ListTaskGateway
 
     public function getPublicList(){
         $tab = [];
-        $query = 'SELECT id, name, visibility, owner FROM ListTask WHERE visibility = :visibility';
+        $query = 'SELECT name, visibility, owner FROM ListTask WHERE visibility = :visibility';
         $this->con->executeQuery($query, array(':visibility' => array(1, PDO::PARAM_INT)));
 
         $result = $this->con->getResults();
         foreach ($result as $item) {
-            $tabTask = $this->getTask($item['id']);
+            $tabTask = $this->getTask($item['name']);
             $tab[] = new ListTask($item['name'], $item['visibility'], $item['owner'], $tabTask);
         }
         return $tab;
     }
 
-    public function getPrivateList(int $owner){
+    public function getPrivateList(string $owner){
         $tab = [];
-        $query = 'SELECT id, name, visibility, owner FROM ListTask WHERE visibility = :visibility AND owner = :owner';
-        $this->con->executeQuery($query, array(':visibility' => array(0, PDO::PARAM_INT), ':owner' => array($owner, PDO::PARAM_INT)));
+        $query = 'SELECT name, visibility, owner FROM ListTask WHERE visibility = :visibility AND owner = :owner';
+        $this->con->executeQuery($query, array(':visibility' => array(0, PDO::PARAM_INT), ':owner' => array($owner, PDO::PARAM_STR)));
 
         $result = $this->con->getResults();
         foreach ($result as $item) {
-            $tabTask = $this->getTask($item['id']);
+            $tabTask = $this->getTask($item['name']);
             $tab[] = new ListTask($item['name'], $item['visibility'], $item['owner'], $tabTask);
         }
         return $tab;

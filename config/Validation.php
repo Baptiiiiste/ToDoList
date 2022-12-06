@@ -14,6 +14,7 @@ class Validation {
     static function val_string(string $string) {
         if (!isset($string) || $string=="") {
             throw new Exception("error string");
+            return "";
         } else {
             return $string;
         }
