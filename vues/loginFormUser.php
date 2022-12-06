@@ -17,16 +17,17 @@ require("vues/header.php")
 <!-- =================================================================================== -->
 
 <div class="d-flex flex-column align-items-center mt-5">
-    <form class="w-25">
+    <form class="w-25" method="POST">
         <div class="form-group mt-3">
             <label for="exampleInputLogin1">Login</label>
-            <input type="login" class="form-control" id="exampleInputLogin1" placeholder="Enter login">
+            <input type="text" class="form-control" name="pseudo" id="exampleInputLogin1" placeholder="Enter login">
         </div>
         <div class="form-group mt-3">
             <label for="exampleInputPassword1">Password</label>
-            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+            <input type="password"  name="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
         </div>
         <button type="submit" class="btn btn-primary mt-3">Submit</button>
+        <input type="hidden" name="action" value="loginForm">
     </form>
 </div>
 

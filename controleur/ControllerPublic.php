@@ -38,6 +38,14 @@ class ControllerPublic{
                 case "login":
                     require($rep.$vues['loginFormUser']);
                     break;
+                case "loginForm":
+                    // connecter le user
+                    $pseudo = Validation::val_string($_POST['pseudo']);
+                    $password = Validation::val_string($_POST['password']);
+                    $this->logTheUser($con, $pseudo, $password);
+                    break;
+
+
                 default:
                     $TabVueEreur[] = "Une erreur est survenue";
                     require($rep.$vues['erreur']);
@@ -87,6 +95,12 @@ class ControllerPublic{
     function addPublicTask(Connection $con, string $name, string $description, string $listTask){
         $tdl = new ModelTodoList();
         $tdl->addTask($con, $name, $description, $listTask);
+    }
+
+    function logTheUser(Connection $con, string $pseudo, string $password){
+        $user = new ModelUser();
+        echo "u gonna be connected";
+        $user->connection($pseudo, $password);
     }
 
 }
