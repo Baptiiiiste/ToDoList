@@ -19,7 +19,7 @@ class ControllerPublic{
                     $this->showTDLPublic($con);
                     break;
                 case "addPublicTDL":
-                    // afficher une todolist
+                    $name = Validation::val_string($_POST['namePublicTDL']);
                     break;
                 case "deletePublicTDL":
                     // delete tdl
