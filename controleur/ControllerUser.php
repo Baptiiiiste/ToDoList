@@ -1,10 +1,9 @@
 <?php
 
-class ControleurPublic{
+class ControllerUser
+{
     public function __construct(){
         global $rep,$vues, $base, $login, $mdp;
-
-        session_start();
 
         $TabVueEreur = array();
         $con = new Connection($base, $login, $mdp);
@@ -17,16 +16,13 @@ class ControleurPublic{
             }
 
             switch($action){
-                case NULL:
-                    $this->showTDLPublic($con);
-                    break;
                 case "private":
                     $this->showTDLPrivate($con);
                     break;
-                case "addTDL":
+                case "addPrivateTDL":
                     // afficher une todolist
                     break;
-                case "deleteTDL":
+                case "deletePrivateTDL":
                     // delete tdl
                     break;
                 default:
@@ -47,15 +43,6 @@ class ControleurPublic{
 
         }
         exit(0);
-    }
-
-    function showTDLPublic(Connection $con){
-        global $rep,$vues;
-        $tdl = new ModelTodoList();
-        $user = $tdl->getConnectedUser($con);
-        $user = 1;
-        $listTDLPublic = $tdl->getAllTDL($con, 'public');
-        require($rep.$vues['public']);
     }
 
     function showTDLPrivate(Connection $con){
@@ -82,5 +69,4 @@ class ControleurPublic{
     function deleteTDL(){
         global $rep,$vues;
     }
-
 }

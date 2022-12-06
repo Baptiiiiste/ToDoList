@@ -3,7 +3,14 @@
 class User
 {
     private $pseudo;
-    private $mail;
+
+    /**
+     * @param $pseudo
+     */
+    public function __construct($pseudo)
+    {
+        $this->pseudo = $pseudo;
+    }
 
     /**
      * @return mixed
@@ -13,11 +20,5 @@ class User
         return $this->pseudo;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getMail()
-    {
-        return $this->mail;
-    }
+
 }

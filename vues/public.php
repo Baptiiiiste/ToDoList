@@ -20,12 +20,11 @@ require("vues/header.php")
 <div class="d-flex flex-row justify-content-center p-4 border-bottom">
     <form class="add-items d-flex" method="post">
         <input type="text" name="nom" class="form-control todo-list-input" placeholder="Name" style="margin-right: 5px">
-        <select class="form-select" aria-label="Default select example" style="margin-right: 5px">
-            <option value="1">Public</option>
-            <option value="0">Private</option>
-        </select>
-        <input type="hidden" name="action" value="validationFormulaire">
-        <a href="index.php?action=addTDL" class="add btn btn-primary font-weight-bold todo-list-add-btn">Add</a>
+        <?php
+        $params = '&name='.$_POST['nom'];
+        $link = 'index.php?action=addPublicTDL'.$params;
+        echo '<a href='.$link.' class="add btn btn-primary font-weight-bold todo-list-add-btn">Add</a>'
+        ?>
     </form>
 </div>
 

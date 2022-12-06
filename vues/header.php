@@ -7,9 +7,9 @@
                 <li><a href="index.php?action=private" class="nav-link px-2 text-white">Private</a></li>
             </ul>
             <div class="text-end">
-                <button type="button" class="btn btn-outline-light me-2">Login</button>
-                <button type="button" class="btn btn-warning"
-                    style="background-color: rgb(47, 155, 206); border-color: rgb(47, 155, 206);">Sign-up</button>
+                <a href="index.php?action=login" class="btn btn-outline-light me-2">Login</a>
+                <a href="index.php" class="btn btn-warning"
+                    style="background-color: rgb(47, 155, 206); border-color: rgb(47, 155, 206);">Sign-up</a>
             </div>
         </div>
     </div>
