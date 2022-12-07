@@ -53,13 +53,13 @@ class ControllerPublic{
             }
         }catch (PDOException $e)
         {
-            $TabVueEreur[] = "Erreur lors de la communication avec la base de données";
+            $TabVueEreur[] = $e->getMessage();
             require($rep.$vues['erreur']);
 
         }
         catch (Exception $e2)
         {
-            $TabVueEreur[] = "Une erreur est survenue, re-essayez plus tard";
+            $TabVueEreur[] = $e2->getMessage();
             require($rep.$vues['erreur']);
         }
         exit(0);
@@ -80,7 +80,7 @@ class ControllerPublic{
         //    throw new Exception("error add todolist");
         //}
         $tdl = new ModelTodoList();
-        $tdl->addTDL($con, $name, 'loris', true);
+        $tdl->addTDL($con, $name, true);
     }
 
     function deletePublicTDL(Connection $con, string $name){

@@ -7,18 +7,25 @@ class ListTaskGateway
         $this->con = $con;
     }
 
-    public function insert(string $name, string $owner, bool $visibility) {
-        $query = 'INSERT INTO ListTask (name, owner, visibility) VALUES (:name, :owner, :visibility)';
-        $this->con->executeQuery($query, array(':name' => array($name, PDO::PARAM_STR), ':owner' => array($owner, PDO::PARAM_STR), ':visibility' => array($visibility, PDO::PARAM_BOOL)));
-        echo 'oui';
+    public function insert(string $name, string $owner, bool $visibility)
+    {
+        if ($owner == "") {
+            $query = 'INSERT INTO ListTask (name, visibility) VALUES (:name, :visibility)';
+            $this->con->executeQuery($query, array(':name' => array($name, PDO::PARAM_STR), ':visibility' => array($visibility, PDO::PARAM_BOOL)));
+        } else {
+            $query = 'INSERT INTO ListTask (name, owner, visibility) VALUES (:name, :owner, :visibility)';
+            $this->con->executeQuery($query, array(':name' => array($name, PDO::PARAM_STR), ':owner' => array($owner, PDO::PARAM_STR), ':visibility' => array($visibility, PDO::PARAM_BOOL)));
+        }
     }
 
-    public function delete(string $name){
+    public function delete(string $name)
+    {
         $query = 'DELETE FROM ListTask WHERE name=:name';
         $this->con->executeQuery($query, array(':name' => array($name, PDO::PARAM_STR)));
     }
 
-    public function getTask(string $name){
+    public function getTask(string $name)
+    {
         $tab = [];
         $query = 'SELECT name, description, done, listTask FROM Task WHERE listTask=:name';
         $this->con->executeQuery($query, array(':name' => array($name, PDO::PARAM_STR)));

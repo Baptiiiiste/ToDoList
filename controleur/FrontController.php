@@ -38,7 +38,15 @@ class FrontController
             } else {
                 $controller = new ControllerPublic();
             }
-        } catch (Exception $e) {
+        }catch (PDOException $e)
+        {
+            $TabVueEreur[] = $e->getMessage();
+            require($rep.$vues['erreur']);
+
+        }
+        catch (Exception $e2)
+        {
+            $TabVueEreur[] = $e2->getMessage();
             require($rep.$vues['erreur']);
         }
     }

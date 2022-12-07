@@ -32,15 +32,14 @@ class ControllerUser
             }
         }catch (PDOException $e)
         {
-            $TabVueEreur[] = "Erreur lors de la communication avec la base de données";
-            require($rep.$vues['public']);
+            $TabVueEreur[] = $e->getMessage();
+            require($rep.$vues['erreur']);
 
         }
         catch (Exception $e2)
         {
-            $TabVueEreur[] = "Une erreur est survenue, re-essayez plus tard";
-            require($rep.$vues['public']);
-
+            $TabVueEreur[] = $e2->getMessage();
+            require($rep.$vues['erreur']);
         }
         exit(0);
     }
