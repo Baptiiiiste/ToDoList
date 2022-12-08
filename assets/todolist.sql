@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : ven. 25 nov. 2022 à 10:53
+-- Généré le : jeu. 08 déc. 2022 à 11:10
 -- Version du serveur : 5.7.36
 -- Version de PHP : 7.4.26
 
@@ -29,20 +29,19 @@ SET time_zone = "+00:00";
 
 DROP TABLE IF EXISTS `listtask`;
 CREATE TABLE IF NOT EXISTS `listtask` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) COLLATE utf8_bin NOT NULL,
   `visibility` tinyint(1) NOT NULL DEFAULT '0',
-  `owner` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `owner` (`owner`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+  `owner` int(11) DEFAULT NULL,
+  PRIMARY KEY (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Déchargement des données de la table `listtask`
 --
 
-INSERT INTO `listtask` (`id`, `name`, `visibility`, `owner`) VALUES
-(2, 'Devoir', 0, 1);
+INSERT INTO `listtask` (`name`, `visibility`, `owner`) VALUES
+('test', 1, NULL),
+('test2', 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -52,14 +51,12 @@ INSERT INTO `listtask` (`id`, `name`, `visibility`, `owner`) VALUES
 
 DROP TABLE IF EXISTS `task`;
 CREATE TABLE IF NOT EXISTS `task` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) COLLATE utf8_bin NOT NULL,
   `description` varchar(255) COLLATE utf8_bin NOT NULL,
   `done` tinyint(1) NOT NULL DEFAULT '0',
   `listTask` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `listTask` (`listTask`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+  PRIMARY KEY (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
 
@@ -69,21 +66,10 @@ CREATE TABLE IF NOT EXISTS `task` (
 
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE IF NOT EXISTS `user` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
   `pseudo` varchar(50) COLLATE utf8_bin NOT NULL,
-  `email` varchar(100) COLLATE utf8_bin NOT NULL,
-  PRIMARY KEY (`id`)
+  `password` varchar(100) COLLATE utf8_bin NOT NULL,
+  PRIMARY KEY (`pseudo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-
---
--- Contraintes pour les tables déchargées
---
-
---
--- Contraintes pour la table `task`
---
-ALTER TABLE `task`
-  ADD CONSTRAINT `listTask` FOREIGN KEY (`listTask`) REFERENCES `listtask` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
