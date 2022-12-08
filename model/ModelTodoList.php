@@ -23,7 +23,7 @@ class ModelTodoList
             $gateway = new ListTaskGateway($con);
             $gateway->insert($name, $owner, $visibility);
         } catch (PDOException $e) {
-            throw new Exception("list already exist");
+            throw new Exception("List already exist");
         }
 
     }
@@ -33,7 +33,7 @@ class ModelTodoList
             $gateway = new TaskGateway($con);
             $gateway->insert($name, $description, $listTask);
         } catch (PDOException $e) {
-            throw new Exception("task already exist");
+            throw new Exception("Task already exist");
         }
     }
 
@@ -42,7 +42,7 @@ class ModelTodoList
             $gateway = new ListTaskGateway($con);
             $gateway->delete($name);
         } catch (PDOException $e) {
-            throw new Exception("list doesn't exist");
+            throw new Exception("List doesn't exist");
         }
     }
 
@@ -51,7 +51,7 @@ class ModelTodoList
             $gateway = new TaskGateway($con);
             $gateway->delete($name);
         } catch (PDOException $e) {
-            throw new Exception("task doesn't exist");
+            throw new Exception("Task doesn't exist");
         }
     }
 }
