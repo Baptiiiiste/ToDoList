@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : jeu. 08 déc. 2022 à 11:32
+-- Généré le : ven. 09 déc. 2022 à 08:10
 -- Version du serveur : 5.7.36
 -- Version de PHP : 7.4.26
 
@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS `listtask` (
 --
 
 INSERT INTO `listtask` (`name`, `visibility`, `owner`) VALUES
-('test', 1, NULL);
+('b', 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -58,14 +58,16 @@ CREATE TABLE IF NOT EXISTS `task` (
   `listTask` varchar(50) COLLATE utf8_bin NOT NULL,
   PRIMARY KEY (`id`),
   KEY `listTask` (`listTask`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Déchargement des données de la table `task`
 --
 
 INSERT INTO `task` (`id`, `name`, `description`, `done`, `listTask`) VALUES
-(1, 'dd', 'dd', 0, 'test');
+(5, 'sss', 'sss', 0, 'b'),
+(6, 'sss', 'sss', 0, 'b'),
+(7, 'sss', 'sss', 0, 'b');
 
 -- --------------------------------------------------------
 
@@ -79,6 +81,14 @@ CREATE TABLE IF NOT EXISTS `user` (
   `password` varchar(100) COLLATE utf8_bin NOT NULL,
   PRIMARY KEY (`login`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Déchargement des données de la table `user`
+--
+
+INSERT INTO `user` (`login`, `password`) VALUES
+('baptiste', '$2y$10$nAPuZKf7BtWqIwaB/P.yQuS5vLnsBRFz2qGJTFEZE9ko9nz3OEF8S'),
+('loris', '$2y$10$s0JJnAcBIAnvqwSJ/ggq5OUwVjAgAt5.QFTl5gta.I8/NLbYDfkeq');
 
 --
 -- Contraintes pour les tables déchargées
