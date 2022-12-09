@@ -10,7 +10,7 @@ class Validation {
         }
     }
 
-    static function val_string(string $string) {
+    static function val_string(string $string): string {
         if (!isset($string) || $string=="" || ctype_space($string)) {
             throw new Exception("Invalid string");
             return "";
