@@ -10,9 +10,9 @@ $rep=__DIR__.'/../';
 
 
 //BD
-$base = "mysql:host=londres.uca.local;dbname=dbbabonneau";
-$login = "babonneau";
-$mdp = "achanger";
+$base = "mysql:host=localhost;dbname=todolist";
+$login = "root";
+$mdp = "loris";
 
 //Vues
 
