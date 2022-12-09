@@ -10,7 +10,7 @@ class FrontController
         session_start();
 
         $listAction = array(
-            'User' => array("private", "addPrivateTDL", "delPrivateTDL", "disconnect")
+            'User' => array("private", "addPrivateTDL", "deletePrivateTDL", "disconnect")
         );
 
         try{

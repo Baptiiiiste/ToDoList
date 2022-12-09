@@ -31,6 +31,11 @@ class ControllerPublic{
                     $this->addPublicTask($con, $name, $description, $listTask);
                     $this->showTDLPublic($con);
                     break;
+                case "deletePublicTask":
+                    $id = Validation::val_string($_REQUEST['index']);
+                    $this->deletePublicTask($con, $id);
+                    $this->showTDLPublic($con);
+                    break;
                 case "login":
                     require($rep.$vues['loginFormUser']);
                     break;
@@ -81,6 +86,11 @@ class ControllerPublic{
     function addPublicTask(Connection $con, string $name, string $description, string $listTask){
         $tdl = new ModelTodoList();
         $tdl->addTask($con, $name, $description, $listTask);
+    }
+
+    function deletePublicTask(Connection $con, int $id){
+        $tdl = new ModelTodoList();
+        $tdl->deleteTask($con, $id);
     }
 
     function logTheUser(Connection $con, string $pseudo, string $password){
