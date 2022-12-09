@@ -8,12 +8,12 @@ class TaskGateway
     }
 
     public function insert(string $name, string $description, string $listTask) {
-        $query = 'INSERT INTO Task (name, description, listTask) VALUES (:name, :description, :listTask)';
+        $query = 'INSERT INTO task (name, description, listTask) VALUES (:name, :description, :listTask)';
         $this->con->executeQuery($query, array(':name' => array($name, PDO::PARAM_STR), ':description' => array($description, PDO::PARAM_STR), ':listTask' => array($listTask, PDO::PARAM_STR)));
     }
 
     public function delete(int $id){
-        $query = 'DELETE FROM Task WHERE id=:id';
+        $query = 'DELETE FROM task WHERE id=:id';
         $this->con->executeQuery($query, array(':id' => array($id, PDO::PARAM_INT)));
     }
 }

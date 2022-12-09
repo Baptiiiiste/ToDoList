@@ -9,7 +9,7 @@ class UserGateway
         $this->con = $con;
     }
     public function insert(string $login, string $password) {
-        $query = 'INSERT INTO User (login, password) VALUES (:login, :email, :password)';
+        $query = 'INSERT INTO user (login, password) VALUES (:login, :email, :password)';
         $this->con->executeQuery($query, array(':login' => array($login, PDO::PARAM_STR), ':password' => array($password,  PDO::PARAM_STR)));
     }
 
@@ -18,7 +18,7 @@ class UserGateway
 
         // Surement d'abord vérifier si "SELECT login" existe ?
 
-        $query = "SELECT password FROM User WHERE login=:login";
+        $query = "SELECT password FROM user WHERE login=:login";
         $this->con->executeQuery($query, array(":login" => array($login, PDO::PARAM_STR)));
         $res = $this->con->getResults()[0]['password'];
         return $res;
