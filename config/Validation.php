@@ -10,12 +10,12 @@ class Validation {
         }
     }
 
-    static function val_string(string $string): string {
-        if (!isset($string) || $string!=filter_var($string, FILTER_SANITIZE_STRING)) {
+    static function val_string(string $str): string {
+        if (!isset($str) || $str!=filter_var($str, FILTER_SANITIZE_STRING)) {
             throw new Exception("Invalid string");
             return "";
         } else {
-            return $string;
+            return $str;
         }
     }
 }
