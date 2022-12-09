@@ -22,8 +22,8 @@
                     <?php
                         foreach ($value->getTabTask() as $val){
                             if($val->getDone()){
-                                echo '<li style="list-style-type: none; margin-left: -50px" class="completed">';
-                                echo '<div class="form-check"> <label class="form-check-label"> <input class="checkbox" type="checkbox" checked="">'.$val->getName().' : '.$val->getDescription().'</label><a href="index.php?action=deletePublicTask&index='.$val->getName().'" class="add btn btn-primary font-weight-bold todo-list-add-btn">X</a>';
+                                echo '<li style="list-style-type: none; margin-left: -50px; text-decoration: line-through">';
+                                echo '<div class="form-check"> <label class="form-check-label"> <input class="checkbox" type="checkbox" checked>'.$val->getName().' : '.$val->getDescription().'</label><a href="index.php?action=deletePublicTask&index='.$val->getName().'" class="add btn btn-primary font-weight-bold todo-list-add-btn">X</a>';
                                 echo '</li>';
                             } else{
                                 echo '<li style="list-style-type: none; margin-left: -50px">';
