@@ -2,6 +2,7 @@
 
 class Task
 {
+    private $id;
     private $name;
     private $description;
     private $done;
@@ -13,12 +14,21 @@ class Task
      * @param $done
      * @param $idList
      */
-    public function __construct($name, $description, $done, $idList)
+    public function __construct($id, $name, $description, $done, $idList)
     {
+        $this->id = $id;
         $this->name = $name;
         $this->description = $description;
         $this->done = $done;
         $this->idList = $idList;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
     }
 
     /**

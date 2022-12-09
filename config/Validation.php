@@ -4,15 +4,14 @@ class Validation {
 
     static function val_action($action) {
         if (!isset($action)) {
-            throw new Exception("Invalid action");
             return NULL;
         } else {
-            return $action;
+            return self::val_string($action);
         }
     }
 
     static function val_string(string $string) {
-        if (!isset($string) || $string=="") {
+        if (!isset($string) || $string=="" || ctype_space($string)) {
             throw new Exception("Invalid string");
             return "";
         } else {

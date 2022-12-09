@@ -11,18 +11,26 @@ class ModelUser{
         }
     }
 
-    public function connection(string $log, string $password){
-        global $base, $login, $mdp;
-        $userGateway = new UserGateway(new Connection($base, $login, $mdp));
+    function getConnectedUser(){
+        $login = Validation::val_string($_SESSION['login']);
+        if ($login == ""){
+            throw new Exception("Error login");
+        } else {
+            return $login;
+        }
+    }
 
-        $log = Validation::val_string($login);
+    public function connection(Connection $con, string $login, string $password){
+        $userGateway = new UserGateway($con);
+
+        $login = Validation::val_string($login);
         $password = Validation::val_string($password);
 
-        $hashedPassword = $userGateway->getPassword($password);
+        $hashedPassword = $userGateway->getPassword($login);
 
         if(password_verify($password, $hashedPassword)){
             $_SESSION['role'] = 'user';
-            $_SESSION['login'] = $log;
+            $_SESSION['login'] = $login;
         }
     }
 }

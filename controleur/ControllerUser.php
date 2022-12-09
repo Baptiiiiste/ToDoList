@@ -9,21 +9,28 @@ class ControllerUser
         $con = new Connection($base, $login, $mdp);
 
         try{
-            if(isset($_REQUEST['action'])) {
-                $action = $_REQUEST['action'];
-            } else {
-                $action = NULL;
-            }
+            $action = Validation::val_action($_REQUEST['action']);
 
             switch($action){
                 case "private":
                     $this->showTDLPrivate($con);
                     break;
                 case "addPrivateTDL":
-                    // afficher une todolist
+                    $name = Validation::val_string($_POST['namePublicTDL']);
+                    $this->addPrivateTDL($con, $name);
+                    $this->showTDLPublic($con);
                     break;
                 case "deletePrivateTDL":
-                    // delete tdl
+                    $name = Validation::val_string($_REQUEST['index']);
+                    $this->deletePrivateTDL($con, $name);
+                    $this->showTDLPrivate($con);
+                    break;
+                case "addPrivateTask":
+                    $name = Validation::val_string($_POST['namePublicTask']);
+                    $description = Validation::val_string($_POST['descriptionPublicTask']);
+                    $listTask = Validation::val_string($_REQUEST['index']);
+                    $this->addPrivateTask($con, $name, $description, $listTask);
+                    $this->showTDLPrivate($con);
                     break;
                 default:
                     $TabVueEreur[] = "Une erreur est survenue";
@@ -47,25 +54,24 @@ class ControllerUser
     function showTDLPrivate(Connection $con){
         global $rep,$vues;
         $tdl = new ModelTodoList();
-        $user = $tdl->getConnectedUser($con);
-        $user = 1;
-        $listTDLPrivate = $tdl->getAllTDL($con, 'private', $user);
-        require($rep.$vues['private']);
+        $modelUser = new ModelUser();
+        $user = $modelUser->getConnectedUser($con);
+        $listTDLPublic = $tdl->getAllTDL($con, 'private');
+        require($rep.$vues['public']);
     }
 
-    function validerAjoutTDL(array $tabVueEreur){
-        global $rep,$vues;
-
-        $name = $_GET['name'];
-        $owner = $_GET['owner'];
-
-        //Validation::val_form($name, true, $tabVueEreur);
-
+    function addPrivateTDL(Connection $con, string $name){
         $tdl = new ModelTodoList();
-        $tdl->addTDL($name, true, $owner);
+        $tdl->addTDL($con, $name, true);
     }
 
-    function deleteTDL(){
-        global $rep,$vues;
+    function deletePrivateTDL(Connection $con, string $name){
+        $tdl = new ModelTodoList();
+        $tdl->deleteTDL($con, $name);
+    }
+
+    function addPrivateTask(Connection $con, string $name, string $description, string $listTask){
+        $tdl = new ModelTodoList();
+        $tdl->addTask($con, $name, $description, $listTask);
     }
 }

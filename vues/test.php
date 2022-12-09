@@ -48,15 +48,22 @@
     //    echo '</script>';
     //}
 
-    $Tab = $gatewayList->getTask(3);
-    foreach ($Tab as $item) {
-        echo "<p>".$item->getName()."</p>";
-    }
+    //$Tab = $gatewayList->getTask(3);
+    //foreach ($Tab as $item) {
+    //    echo "<p>".$item->getName()."</p>";
+    //}
 
-    $tabListTask = $gatewayList->getListTask(1, 0);
-    foreach ($tabListTask as $value) {
-        echo "<p>".$value->getName()."</p>";
-    }
+    //$tabListTask = $gatewayList->getListTask(1, 0);
+    //foreach ($tabListTask as $value) {
+    //    echo "<p>".$value->getName()."</p>";
+    //}
 
     //$gatewayList->delete(1);
+
+    require ("../model/User.php");
+    require ("../gateWay/UserGateway.php");
+    $user = new UserGateway($connexion);
+    $login = "baptiste";
+    $mdp = password_hash('1405', PASSWORD_DEFAULT);
+    $user->insert($login, $mdp);
 ?>

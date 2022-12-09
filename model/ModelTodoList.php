@@ -14,16 +14,12 @@ class ModelTodoList
         return $gateway->getPrivateList($owner);
     }
 
-    function getConnectedUser(Connection $con){
-        return -1;
-    }
-
     function addTDL(Connection $con, string $name, bool $visibility, string $owner = ""){
         try{
             $gateway = new ListTaskGateway($con);
             $gateway->insert($name, $owner, $visibility);
         } catch (PDOException $e) {
-            throw new Exception("List already exist");
+            throw new Exception("List already exists");
         }
 
     }
@@ -33,7 +29,7 @@ class ModelTodoList
             $gateway = new TaskGateway($con);
             $gateway->insert($name, $description, $listTask);
         } catch (PDOException $e) {
-            throw new Exception("Task already exist");
+            throw new Exception("Task already exists");
         }
     }
 
@@ -42,16 +38,16 @@ class ModelTodoList
             $gateway = new ListTaskGateway($con);
             $gateway->delete($name);
         } catch (PDOException $e) {
-            throw new Exception("List doesn't exist");
+            throw new Exception("List doesn't exists");
         }
     }
 
-    function deleteTask(Connection $con, string $name){
+    function deleteTask(Connection $con, int $id){
         try {
             $gateway = new TaskGateway($con);
-            $gateway->delete($name);
+            $gateway->delete($id);
         } catch (PDOException $e) {
-            throw new Exception("Task doesn't exist");
+            throw new Exception("Task doesn't exists");
         }
     }
 }

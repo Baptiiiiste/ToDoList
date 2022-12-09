@@ -14,11 +14,7 @@ class FrontController
         );
 
         try{
-            if (!isset($_REQUEST['action'])) {
-                $action = NULL;
-            } else {
-                $action = $_REQUEST['action'];
-            }
+            $action = Validation::val_action($_REQUEST['action']);
 
             $actor = $this->getActor($listAction, $action);
 

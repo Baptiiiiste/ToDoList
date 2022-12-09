@@ -8,11 +8,7 @@ class ControllerPublic{
         $con = new Connection($base, $login, $mdp);
 
         try{
-            if(isset($_REQUEST['action'])) {
-                $action = $_REQUEST['action'];
-            } else {
-                $action = NULL;
-            }
+            $action = Validation::val_action($_REQUEST['action']);
 
             switch($action){
                 case NULL:
@@ -43,8 +39,8 @@ class ControllerPublic{
                     $pseudo = Validation::val_string($_POST['pseudo']);
                     $password = Validation::val_string($_POST['password']);
                     $this->logTheUser($con, $pseudo, $password);
+                    $this->showTDLPublic($con);
                     break;
-
 
                 default:
                     $TabVueEreur[] = "Une erreur est survenue";
@@ -68,28 +64,18 @@ class ControllerPublic{
     function showTDLPublic(Connection $con){
         global $rep,$vues;
         $tdl = new ModelTodoList();
-        $user = $tdl->getConnectedUser($con);
-        $user = 1;
         $listTDLPublic = $tdl->getAllTDL($con, 'public');
         require($rep.$vues['public']);
     }
 
     function addPublicTDL(Connection $con, string $name){
-        //$owner = Validation::val_string($_SESSION['login']);
-        //if($owner == "" || $name == ""){
-        //    throw new Exception("error add todolist");
-        //}
         $tdl = new ModelTodoList();
         $tdl->addTDL($con, $name, true);
     }
 
     function deletePublicTDL(Connection $con, string $name){
-        //$owner = Validation::val_string($_SESSION['login']);
-        //if($owner == "" || $name == ""){
-        //    throw new Exception("error add todolist");
-        //}
         $tdl = new ModelTodoList();
-        $tdl->deleteTDL($con, $name, 'loris', true);
+        $tdl->deleteTDL($con, $name);
     }
 
     function addPublicTask(Connection $con, string $name, string $description, string $listTask){
@@ -99,8 +85,7 @@ class ControllerPublic{
 
     function logTheUser(Connection $con, string $pseudo, string $password){
         $user = new ModelUser();
-        echo "u gonna be connected";
-        $user->connection($pseudo, $password);
+        $user->connection($con, $pseudo, $password);
     }
 
 }
