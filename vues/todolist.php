@@ -20,17 +20,17 @@
             <div class="list-wrapper">
                 <ul class="d-flex flex-column-reverse todo-list">
                     <?php
-                    foreach ($value->getTabTask() as $val){
-                        if($val->getDone()){
-                            echo '<li class="completed">';
-                            echo '<div class="form-check"> <label class="form-check-label"> <input class="checkbox" type="checkbox" checked="">'. $val->getName() .': '. $val->getDescription() .'<i class="input-helper"></i></label> </div> <i class="remove mdi mdi-close-circle-outline"></i>';
-                            echo '</li>';
-                        } else{
-                            echo '<li>';
-                            echo '<div class="form-check"> <label class="form-check-label"> <input class="checkbox" type="checkbox">'. $val->getName() .': '. $val->getDescription()  .'<i class="input-helper"></i></label> </div> <i class="remove mdi mdi-close-circle-outline"></i>';
-                            echo '</li>';
+                        foreach ($value->getTabTask() as $val){
+                            if($val->getDone()){
+                                echo '<li style="list-style-type: none; margin-left: -50px" class="completed">';
+                                echo '<div class="form-check"> <label class="form-check-label"> <input class="checkbox" type="checkbox" checked="">'.$val->getName().' : '.$val->getDescription().'</label><a href="index.php?action=deletePublicTask&index='.$val->getName().'" class="add btn btn-primary font-weight-bold todo-list-add-btn">X</a>';
+                                echo '</li>';
+                            } else{
+                                echo '<li style="list-style-type: none; margin-left: -50px">';
+                                echo '<div class="form-check d-flex justify-content-between flex-row align-items-center"> <label class="form-check-label"> <input class="checkbox" style="margin-right: 5px" type="checkbox">'.$val->getName().' : '.$val->getDescription().'</label><a style="margin-left: 5px; margin-top: 2px" href="index.php?action=deletePublicTask&index='.$val->getName().'" class="add btn btn-outline-primary font-weight-bold todo-list-add-btn">X</a>';
+                                echo '</li>';
+                            }
                         }
-                    }
                     ?>
                 </ul>
             </div>

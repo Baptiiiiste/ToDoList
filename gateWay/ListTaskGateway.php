@@ -27,7 +27,7 @@ class ListTaskGateway
     public function getTask(string $name)
     {
         $tab = [];
-        $query = 'SELECT id, name, description, done, listTask FROM task WHERE listTask=:name';
+        $query = 'SELECT name, description, done, listTask FROM Task WHERE listTask=:name';
         $this->con->executeQuery($query, array(':name' => array($name, PDO::PARAM_STR)));
 
         $result = $this->con->getResults();

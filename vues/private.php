@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>TUDUM List</title>
     <link rel="stylesheet" href="../css/globals.css">
+
 </head>
 
 <body>
