@@ -32,6 +32,9 @@ class ControllerUser
                     $this->addPrivateTask($con, $name, $description, $listTask);
                     $this->showTDLPrivate($con);
                     break;
+                case "disconnect":
+                    $this->logOut();
+                    break;
                 default:
                     $TabVueEreur[] = "Une erreur est survenue";
                     require($rep.$vues['erreur']);
@@ -56,8 +59,8 @@ class ControllerUser
         $tdl = new ModelTodoList();
         $modelUser = new ModelUser();
         $user = $modelUser->getConnectedUser($con);
-        $listTDLPublic = $tdl->getAllTDL($con, 'private');
-        require($rep.$vues['public']);
+        $listTDLPrivate = $tdl->getAllTDL($con, 'private', $user);
+        require($rep.$vues['private']);
     }
 
     function addPrivateTDL(Connection $con, string $name){
@@ -73,5 +76,14 @@ class ControllerUser
     function addPrivateTask(Connection $con, string $name, string $description, string $listTask){
         $tdl = new ModelTodoList();
         $tdl->addTask($con, $name, $description, $listTask);
+    }
+
+    function logOut(){
+        global $rep,$vues;
+        session_unset();
+        session_destroy();
+        $_SESSION = array();
+        $action = null;
+        require($rep.$vues['loginFormUser']);
     }
 }

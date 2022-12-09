@@ -26,7 +26,7 @@ require("vues/header.php")
 
 <div class="d-flex flex-row justify-content-center" style="height: 100%">
     <div class="d-flex flex-column m-5 align-items-center">
-        <h3> Todo List Public</h3>
+        <h3>Public Lists</h3>
         <?php
         if(count($listTDLPublic) == 0){
             echo '<p>No List</p>';
