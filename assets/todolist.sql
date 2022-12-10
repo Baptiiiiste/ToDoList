@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : ven. 09 déc. 2022 à 08:10
+-- Généré le : sam. 10 déc. 2022 à 20:39
 -- Version du serveur : 5.7.36
 -- Version de PHP : 7.4.26
 
@@ -29,19 +29,22 @@ SET time_zone = "+00:00";
 
 DROP TABLE IF EXISTS `listtask`;
 CREATE TABLE IF NOT EXISTS `listtask` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) COLLATE utf8_bin NOT NULL,
   `visibility` tinyint(1) NOT NULL DEFAULT '0',
   `owner` varchar(50) COLLATE utf8_bin DEFAULT NULL,
-  PRIMARY KEY (`name`,`visibility`),
+  PRIMARY KEY (`id`,`visibility`),
   KEY `owner` (`owner`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Déchargement des données de la table `listtask`
 --
 
-INSERT INTO `listtask` (`name`, `visibility`, `owner`) VALUES
-('b', 1, NULL);
+INSERT INTO `listtask` (`id`, `name`, `visibility`, `owner`) VALUES
+(19, 'test', 1, NULL),
+(20, 'sss', 0, 'loris'),
+(21, 'test', 0, 'loris');
 
 -- --------------------------------------------------------
 
@@ -55,19 +58,10 @@ CREATE TABLE IF NOT EXISTS `task` (
   `name` varchar(50) COLLATE utf8_bin NOT NULL,
   `description` varchar(255) COLLATE utf8_bin NOT NULL,
   `done` tinyint(1) NOT NULL DEFAULT '0',
-  `listTask` varchar(50) COLLATE utf8_bin NOT NULL,
+  `listTask` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `listTask` (`listTask`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-
---
--- Déchargement des données de la table `task`
---
-
-INSERT INTO `task` (`id`, `name`, `description`, `done`, `listTask`) VALUES
-(5, 'sss', 'sss', 0, 'b'),
-(6, 'sss', 'sss', 0, 'b'),
-(7, 'sss', 'sss', 0, 'b');
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
 
@@ -104,7 +98,7 @@ ALTER TABLE `listtask`
 -- Contraintes pour la table `task`
 --
 ALTER TABLE `task`
-  ADD CONSTRAINT `listTask` FOREIGN KEY (`listTask`) REFERENCES `listtask` (`name`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `listTask` FOREIGN KEY (`listTask`) REFERENCES `listtask` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
