@@ -45,7 +45,15 @@ class ControllerPublic{
                     $this->logTheUser($con, $pseudo, $password);
                     $this->showTDLPublic($con);
                     break;
-
+                case "signin":
+                    require($rep.$vues['signinFormPublic']);
+                    break;
+                case "signinForm":
+                    $pseudo = Validation::val_string($_POST['pseudo']);
+                    $password = Validation::val_string($_POST['password']);
+                    $this->createTheUser($con, $pseudo, $password);
+                    $this->showTDLPublic($con);
+                    break;
                 default:
                     $TabVueEreur[] = "Une erreur est survenue";
                     require($rep.$vues['erreur']);
@@ -129,8 +137,31 @@ class ControllerPublic{
      * @return void
      */
     function logTheUser(Connection $con, string $pseudo, string $password){
+        global $rep,$vues;
         $user = new ModelUser();
-        $user->connection($con, $pseudo, $password);
+        if($user->isUser() != null){
+            require($rep.$vues['public']);
+        }else {
+            $user->connection($con, $pseudo, $password);
+        }
+    }
+
+    /**
+     * @param Connection $con
+     * @param string $pseudo
+     * @param string $password
+     * @return void
+     */
+    function createTheUser(Connection $con, string $pseudo, string $password){
+        global $rep,$vues;
+        $user = new ModelUser();
+        if($user->isConnected() == true){
+            require($rep.$vues['public']);
+        }else{
+            $user->createUser($con, $pseudo, $password);
+            $user->connection($con, $pseudo, $password);
+        }
+
     }
 
 }

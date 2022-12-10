@@ -87,4 +87,21 @@ class ModelTodoList
             throw new Exception("Task doesn't exists");
         }
     }
+
+//    /**
+//     * @param Connection $con
+//     * @param int $id
+//     * @return void
+//     */
+//    function doTask(Connection $con, int $id){
+//
+//        $gateway = new TaskGateway($con);
+//        $task = $gateway->getTask($id);
+//
+//        if($task->isDone()){
+//
+//        }
+//
+//    }
+
 }

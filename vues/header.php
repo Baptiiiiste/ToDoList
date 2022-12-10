@@ -7,8 +7,17 @@
                 <li><a href="index.php?action=private" class="nav-link px-2 text-white">Private</a></li>
             </ul>
             <div class="text-end">
-                <a href="index.php?action=login" class="btn btn-warning" style="background-color: rgb(47, 155, 206); border-color: rgb(47, 155, 206);">Log in</a>
-                <a href="index.php?action=disconnect" class="btn btn-outline-light me-2">Log out</a>
+                <?php
+
+                    $mdlUser = new ModelUser();
+
+                    if($mdlUser->isUser() == null){
+                        echo '<a href="index.php?action=login" class="btn btn-warning" style="background-color: rgb(47, 155, 206); border-color: rgb(47, 155, 206);">Log in</a>';
+                        echo '<a href="index.php?action=signin" class="btn btn-outline-light" style="margin-left: 5px">Sign in</a>';
+                    }else{
+                        echo '<a href="index.php?action=disconnect" class="btn btn-outline-light">Log out</a>';
+                    }
+                ?>
             </div>
         </div>
     </div>

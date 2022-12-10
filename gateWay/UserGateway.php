@@ -31,9 +31,6 @@ class UserGateway
      */
     public function getPassword(string $login){
         $login = Validation::val_string($login);
-
-        // Surement d'abord vérifier si "SELECT login" existe ?
-
         $query = "SELECT password FROM user WHERE login=:login";
         $this->con->executeQuery($query, array(":login" => array($login, PDO::PARAM_STR)));
         $res = $this->con->getResults()[0]['password'];

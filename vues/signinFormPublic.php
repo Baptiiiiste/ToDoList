@@ -19,8 +19,8 @@
     <!-- =================================================================================== -->
 
     <div class="d-flex flex-column align-items-center mt-5">
-        <h2>Log in</h2>
-        <form class="w-25" method="POST">
+        <h2>Sign in</h2>
+        <form class="w-25 " method="POST" >
             <div class="form-group mt-3">
                 <label for="exampleInputLogin1">Login</label>
                 <input type="text" class="form-control" name="pseudo" id="exampleInputLogin1" placeholder="Enter login">
@@ -29,10 +29,10 @@
                 <label for="exampleInputPassword1">Password</label>
                 <input type="password"  name="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
             </div>
-            <button type="submit" class="btn btn-primary mt-3">Submit</button>
-            <input type="hidden" name="action" value="loginForm">
+            <button type="submit" class="btn btn-primary mt-3 ">Submit</button>
+            <input type="hidden" name="action" value="signinForm">
         </form>
-        <p>Do not have an account ? <a href="index.php?action=signin">Sign in</a></p>
+        <p>Already have an account ? <a href="index.php?action=login">Log in</a></p>
     </div>
 
     <!-- =================================================================================== -->

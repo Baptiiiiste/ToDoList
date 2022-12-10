@@ -34,4 +34,16 @@ class TaskGateway
         $query = 'DELETE FROM task WHERE id=:id';
         $this->con->executeQuery($query, array(':id' => array($id, PDO::PARAM_INT)));
     }
+
+//    /**
+//     * @param int $id
+//     * @return void
+//     */
+//    public function getTask(int $id){
+//        $query = 'SELECT * FROM task WHERE id=:id';
+//        $this->con->executeQuery($query, array(':id' => array($id, PDO::PARAM_INT)));
+//        $res = $this->con->getResults();
+//        $task = new Task($res['id'], $res['name'], $res['description'], $res['done'], $res['idList']);
+//        return $task;
+//    }
 }

@@ -12,7 +12,7 @@ $rep=__DIR__.'/../';
 //BD
 $base = "mysql:host=localhost;dbname=todolist";
 $login = "root";
-$mdp = "loris";
+$mdp = "";
 
 //Vues
 
@@ -21,6 +21,7 @@ $vues['index']='index.php';
 $vues['public']='vues/public.php';
 $vues['private']='vues/private.php';
 $vues['loginFormUser']='vues/loginFormUser.php';
+$vues['signinFormPublic']='vues/signinFormPublic.php';
 
 
 ?>

@@ -48,4 +48,33 @@ class ModelUser{
             $_SESSION['login'] = $login;
         }
     }
+
+
+    /**
+     * @param Connection $con
+     * @param string $login
+     * @param string $password
+     * @return void
+     * @throws Exception
+     */
+    public function createUser(Connection $con, string $login, string $password){
+        global $rep, $vues;
+        $userGateway = new UserGateway($con);
+
+        $login = Validation::val_string($login);
+        $password = Validation::val_string($password);
+
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+        try{
+            $userGateway->insert($login, $hashedPassword);
+            $this->connection($con, $login, $password);
+        }catch (Exception $e){
+            $TabVueEreur[] = "This pseudo is already taken";
+            require($rep.$vues['erreur']);
+        }
+    }
+
+
 }
+
