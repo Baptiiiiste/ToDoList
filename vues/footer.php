@@ -1,4 +1,4 @@
-<footer class="d-flex flex-wrap align-items-center p-3 border-top position-fixed bottom-0 w-100 bg-white">
+<footer class="d-flex flex-wrap align-items-center p-3 border-top position-sticky bottom-0 w-100 bg-white">
     <p class="col-md-4 mb-0 text-muted">&copy; 2022 TUDUM, Inc</p>
 
     <a href="index.php"

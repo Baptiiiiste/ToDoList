@@ -2,19 +2,35 @@
 
 class Task
 {
-    private $id;
-    private $name;
-    private $description;
-    private $done;
-    private $idList;
+    /**
+     * @var int
+     */
+    private int $id;
+    /**
+     * @var string
+     */
+    private string $name;
+    /**
+     * @var string
+     */
+    private string $description;
+    /**
+     * @var bool
+     */
+    private bool $done;
+    /**
+     * @var int
+     */
+    private int $idList;
 
     /**
-     * @param $name
-     * @param $description
-     * @param $done
-     * @param $idList
+     * @param int $id
+     * @param string $name
+     * @param string $description
+     * @param bool $done
+     * @param int $idList
      */
-    public function __construct($id, $name, $description, $done, $idList)
+    public function __construct(int $id, string $name, string $description, bool $done, int $idList)
     {
         $this->id = $id;
         $this->name = $name;
@@ -24,41 +40,41 @@ class Task
     }
 
     /**
-     * @return mixed
+     * @return int
      */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
 
     /**
-     * @return mixed
+     * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
     /**
-     * @return mixed
+     * @return string
      */
-    public function getDescription()
+    public function getDescription(): string
     {
         return $this->description;
     }
 
     /**
-     * @return mixed
+     * @return bool
      */
-    public function getDone()
+    public function isDone(): bool
     {
         return $this->done;
     }
 
     /**
-     * @return mixed
+     * @return int
      */
-    public function getIdList()
+    public function getIdList(): int
     {
         return $this->idList;
     }

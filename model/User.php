@@ -2,23 +2,24 @@
 
 class User
 {
-    private $pseudo;
+    /**
+     * @var string
+     */
+    private string $pseudo;
 
     /**
-     * @param $pseudo
+     * @param string $pseudo
      */
-    public function __construct($pseudo)
+    public function __construct(string $pseudo)
     {
         $this->pseudo = $pseudo;
     }
 
     /**
-     * @return mixed
+     * @return string
      */
-    public function getPseudo()
+    public function getPseudo(): string
     {
         return $this->pseudo;
     }
-
-
 }

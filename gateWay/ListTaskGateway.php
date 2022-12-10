@@ -2,11 +2,25 @@
 
 class ListTaskGateway
 {
+    /**
+     * @var
+     */
     private $con;
-    public function __construct(Connection $con) {
+
+    /**
+     * @param $con
+     */
+    public function __construct($con)
+    {
         $this->con = $con;
     }
 
+    /**
+     * @param string $name
+     * @param string $owner
+     * @param bool $visibility
+     * @return void
+     */
     public function insert(string $name, string $owner, bool $visibility)
     {
         if ($owner == "") {
@@ -18,17 +32,32 @@ class ListTaskGateway
         }
     }
 
-    public function delete(string $name)
+    /**
+     * @param int $id
+     * @param string $owner
+     * @return void
+     */
+    public function delete(int $id, string $owner)
     {
-        $query = 'DELETE FROM listtask WHERE name=:name';
-        $this->con->executeQuery($query, array(':name' => array($name, PDO::PARAM_STR)));
+        if($owner == ""){
+            $query = 'DELETE FROM listtask WHERE id=:id';
+            $this->con->executeQuery($query, array(':id' => array($id, PDO::PARAM_INT)));
+        } else {
+            $query = 'DELETE FROM listtask WHERE id=:id AND owner=:owner';
+            $this->con->executeQuery($query, array(':id' => array($id, PDO::PARAM_INT), ':owner' => array($owner, PDO::PARAM_STR)));
+        }
+
     }
 
-    public function getTask(string $name)
+    /**
+     * @param int $id
+     * @return array
+     */
+    public function getTask(int $id): array
     {
         $tab = [];
-        $query = 'SELECT id, name, description, done, listTask FROM task WHERE listTask=:name';
-        $this->con->executeQuery($query, array(':name' => array($name, PDO::PARAM_STR)));
+        $query = 'SELECT id, name, description, done, listTask FROM task WHERE listTask=:id';
+        $this->con->executeQuery($query, array(':id' => array($id, PDO::PARAM_INT)));
 
         $result = $this->con->getResults();
         foreach ($result as $item) {
@@ -37,28 +66,37 @@ class ListTaskGateway
         return $tab;
     }
 
-    public function getPublicList(){
+    /**
+     * @return array
+     */
+    public function getPublicList(): array
+    {
         $tab = [];
-        $query = 'SELECT name, visibility, owner FROM listtask WHERE visibility = :visibility';
+        $query = 'SELECT id, name, visibility, owner FROM listtask WHERE visibility = :visibility';
         $this->con->executeQuery($query, array(':visibility' => array(1, PDO::PARAM_INT)));
 
         $result = $this->con->getResults();
         foreach ($result as $item) {
-            $tabTask = $this->getTask($item['name']);
-            $tab[] = new ListTask($item['name'], $item['visibility'], $item['owner'], $tabTask);
+            $tabTask = $this->getTask($item['id']);
+            $tab[] = new ListTask($item['id'], $item['name'], $item['visibility'], $item['owner'], $tabTask);
         }
         return $tab;
     }
 
-    public function getPrivateList(string $owner){
+    /**
+     * @param string $owner
+     * @return array
+     */
+    public function getPrivateList(string $owner): array
+    {
         $tab = [];
-        $query = 'SELECT name, visibility, owner FROM listtask WHERE visibility = :visibility AND owner = :owner';
+        $query = 'SELECT id, name, visibility, owner FROM listtask WHERE visibility = :visibility AND owner = :owner';
         $this->con->executeQuery($query, array(':visibility' => array(0, PDO::PARAM_INT), ':owner' => array($owner, PDO::PARAM_STR)));
 
         $result = $this->con->getResults();
         foreach ($result as $item) {
-            $tabTask = $this->getTask($item['name']);
-            $tab[] = new ListTask($item['name'], $item['visibility'], $item['owner'], $tabTask);
+            $tabTask = $this->getTask($item['id']);
+            $tab[] = new ListTask($item['id'], $item['name'], $item['visibility'], $item['owner'], $tabTask);
         }
         return $tab;
     }

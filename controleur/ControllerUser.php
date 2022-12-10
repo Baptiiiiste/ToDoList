@@ -16,18 +16,18 @@ class ControllerUser
                     $this->showTDLPrivate($con);
                     break;
                 case "addPrivateTDL":
-                    $name = Validation::val_string($_POST['namePublicTDL']);
+                    $name = Validation::val_string($_POST['namePrivateTDL']);
                     $this->addPrivateTDL($con, $name);
-                    $this->showTDLPublic($con);
+                    $this->showTDLPrivate($con);
                     break;
                 case "deletePrivateTDL":
-                    $name = Validation::val_string($_REQUEST['index']);
-                    $this->deletePrivateTDL($con, $name);
+                    $id = Validation::val_string($_REQUEST['index']);
+                    $this->deletePrivateTDL($con, $id);
                     $this->showTDLPrivate($con);
                     break;
                 case "addPrivateTask":
-                    $name = Validation::val_string($_POST['namePublicTask']);
-                    $description = Validation::val_string($_POST['descriptionPublicTask']);
+                    $name = Validation::val_string($_POST['namePrivateTask']);
+                    $description = Validation::val_string($_POST['descriptionPrivateTask']);
                     $listTask = Validation::val_string($_REQUEST['index']);
                     $this->addPrivateTask($con, $name, $description, $listTask);
                     $this->showTDLPrivate($con);
@@ -54,36 +54,69 @@ class ControllerUser
         exit(0);
     }
 
+    /**
+     * @param Connection $con
+     * @return void
+     * @throws Exception
+     */
     function showTDLPrivate(Connection $con){
         global $rep,$vues;
         $tdl = new ModelTodoList();
         $modelUser = new ModelUser();
-        $user = $modelUser->getConnectedUser($con);
+        $user = $modelUser->getConnectedUser();
         $listTDLPrivate = $tdl->getAllTDL($con, 'private', $user);
         require($rep.$vues['private']);
     }
 
+    /**
+     * @param Connection $con
+     * @param string $name
+     * @return void
+     * @throws Exception
+     */
     function addPrivateTDL(Connection $con, string $name){
         $tdl = new ModelTodoList();
-        $tdl->addTDL($con, $name, true);
+        $modelUser = new ModelUser();
+        $user = $modelUser->getConnectedUser();
+        $tdl->addTDL($con, $name, false, $user);
     }
 
-    function deletePrivateTDL(Connection $con, string $name){
+    /**
+     * @param Connection $con
+     * @param int $id
+     * @return void
+     * @throws Exception
+     */
+    function deletePrivateTDL(Connection $con, int $id){
         $tdl = new ModelTodoList();
-        $tdl->deleteTDL($con, $name);
+        $modelUser = new ModelUser();
+        $user = $modelUser->getConnectedUser();
+        $tdl->deleteTDL($con, $id, $user);
     }
 
+    /**
+     * @param Connection $con
+     * @param string $name
+     * @param string $description
+     * @param string $listTask
+     * @return void
+     * @throws Exception
+     */
     function addPrivateTask(Connection $con, string $name, string $description, string $listTask){
         $tdl = new ModelTodoList();
-        $tdl->addTask($con, $name, $description, $listTask);
+        $modelUser = new ModelUser();
+        $user = $modelUser->getConnectedUser();
+        $tdl->addTask($con, $name, $description, $listTask, $user);
     }
 
+    /**
+     * @return void
+     */
     function logOut(){
         global $rep,$vues;
         session_unset();
         session_destroy();
         $_SESSION = array();
-        $action = null;
         require($rep.$vues['loginFormUser']);
     }
 }

@@ -2,6 +2,10 @@
 
 class ModelUser{
 
+    /**
+     * @return User|null
+     * @throws Exception
+     */
     public function isUser(){
         if(isset($_SESSION['login'])){
             $login = Validation::val_string($_SESSION['login']);
@@ -11,6 +15,10 @@ class ModelUser{
         }
     }
 
+    /**
+     * @return string
+     * @throws Exception
+     */
     function getConnectedUser(){
         $login = Validation::val_string($_SESSION['login']);
         if ($login == ""){
@@ -20,6 +28,13 @@ class ModelUser{
         }
     }
 
+    /**
+     * @param Connection $con
+     * @param string $login
+     * @param string $password
+     * @return void
+     * @throws Exception
+     */
     public function connection(Connection $con, string $login, string $password){
         $userGateway = new UserGateway($con);
 

@@ -20,8 +20,8 @@ class ControllerPublic{
                     $this->showTDLPublic($con);
                     break;
                 case "deletePublicTDL":
-                    $name = Validation::val_string($_REQUEST['index']);
-                    $this->deletePublicTDL($con, $name);
+                    $id = Validation::val_string($_REQUEST['index']);
+                    $this->deletePublicTDL($con, $id);
                     $this->showTDLPublic($con);
                     break;
                 case "addPublicTask":
@@ -40,7 +40,6 @@ class ControllerPublic{
                     require($rep.$vues['loginFormUser']);
                     break;
                 case "loginForm":
-                    // connecter le user
                     $pseudo = Validation::val_string($_POST['pseudo']);
                     $password = Validation::val_string($_POST['password']);
                     $this->logTheUser($con, $pseudo, $password);
@@ -66,6 +65,10 @@ class ControllerPublic{
         exit(0);
     }
 
+    /**
+     * @param Connection $con
+     * @return void
+     */
     function showTDLPublic(Connection $con){
         global $rep,$vues;
         $tdl = new ModelTodoList();
@@ -73,26 +76,58 @@ class ControllerPublic{
         require($rep.$vues['public']);
     }
 
+    /**
+     * @param Connection $con
+     * @param string $name
+     * @return void
+     * @throws Exception
+     */
     function addPublicTDL(Connection $con, string $name){
         $tdl = new ModelTodoList();
         $tdl->addTDL($con, $name, true);
     }
 
+    /**
+     * @param Connection $con
+     * @param string $name
+     * @return void
+     * @throws Exception
+     */
     function deletePublicTDL(Connection $con, string $name){
         $tdl = new ModelTodoList();
         $tdl->deleteTDL($con, $name);
     }
 
+    /**
+     * @param Connection $con
+     * @param string $name
+     * @param string $description
+     * @param string $listTask
+     * @return void
+     * @throws Exception
+     */
     function addPublicTask(Connection $con, string $name, string $description, string $listTask){
         $tdl = new ModelTodoList();
         $tdl->addTask($con, $name, $description, $listTask);
     }
 
+    /**
+     * @param Connection $con
+     * @param int $id
+     * @return void
+     * @throws Exception
+     */
     function deletePublicTask(Connection $con, int $id){
         $tdl = new ModelTodoList();
         $tdl->deleteTask($con, $id);
     }
 
+    /**
+     * @param Connection $con
+     * @param string $pseudo
+     * @param string $password
+     * @return void
+     */
     function logTheUser(Connection $con, string $pseudo, string $password){
         $user = new ModelUser();
         $user->connection($con, $pseudo, $password);

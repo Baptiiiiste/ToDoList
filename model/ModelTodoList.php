@@ -3,9 +3,18 @@
 class ModelTodoList
 {
 
+    /**
+     *
+     */
     public function __construct(){}
 
-    function getAllTDL(Connection $con, string $visibility, string $owner = "") {
+    /**
+     * @param Connection $con
+     * @param string $visibility
+     * @param string $owner
+     * @return array
+     */
+    function getAllTDL(Connection $con, string $visibility, string $owner = ""): array {
         $gateway = new ListTaskGateway($con);
 
         if($visibility == 'public'){
@@ -14,6 +23,14 @@ class ModelTodoList
         return $gateway->getPrivateList($owner);
     }
 
+    /**
+     * @param Connection $con
+     * @param string $name
+     * @param bool $visibility
+     * @param string $owner
+     * @return void
+     * @throws Exception
+     */
     function addTDL(Connection $con, string $name, bool $visibility, string $owner = ""){
         try{
             $gateway = new ListTaskGateway($con);
@@ -24,6 +41,14 @@ class ModelTodoList
 
     }
 
+    /**
+     * @param Connection $con
+     * @param string $name
+     * @param string $description
+     * @param string $listTask
+     * @return void
+     * @throws Exception
+     */
     function addTask(Connection $con, string $name, string $description, string $listTask){
         try {
             $gateway = new TaskGateway($con);
@@ -33,15 +58,27 @@ class ModelTodoList
         }
     }
 
-    function deleteTDL(Connection $con, string $name){
+    /**
+     * @param Connection $con
+     * @param int $id
+     * @return void
+     * @throws Exception
+     */
+    function deleteTDL(Connection $con, int $id, string $owner = ""){
         try {
             $gateway = new ListTaskGateway($con);
-            $gateway->delete($name);
+            $gateway->delete($id, $owner);
         } catch (PDOException $e) {
             throw new Exception("List doesn't exists");
         }
     }
 
+    /**
+     * @param Connection $con
+     * @param int $id
+     * @return void
+     * @throws Exception
+     */
     function deleteTask(Connection $con, int $id){
         try {
             $gateway = new TaskGateway($con);

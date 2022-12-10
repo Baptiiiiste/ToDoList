@@ -47,6 +47,11 @@ class FrontController
         }
     }
 
+    /**
+     * @param $listAction
+     * @param $action
+     * @return int|string|null
+     */
     public function getActor($listAction, $action){
         foreach ($listAction as $actor){
             if (in_array($action, $actor)){

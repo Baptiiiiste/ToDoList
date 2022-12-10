@@ -2,23 +2,76 @@
 
 class ListTask
 {
-    public $name;
-    private $visibility;
+    /**
+     * @var int
+     */
+    private int $id;
+    /**
+     * @var string
+     */
+    private string $name;
+    /**
+     * @var bool
+     */
+    private bool $visibility;
+    /**
+     * @var
+     */
     private $owner;
+    /**
+     * @var array
+     */
     private $tabTask = [];
 
     /**
-     * @param $name
-     * @param $visibility
+     * @param int $id
+     * @param string $name
+     * @param bool $visibility
      * @param $owner
      * @param array $tabTask
      */
-    public function __construct($name, $visibility, $owner, array $tabTask)
+    public function __construct(int $id, string $name, bool $visibility, $owner, array $tabTask)
     {
+        $this->id = $id;
         $this->name = $name;
         $this->visibility = $visibility;
         $this->owner = $owner;
         $this->tabTask = $tabTask;
+    }
+
+    /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getVisibility(): string
+    {
+        if($this->visibility){
+            return "Public";
+        }
+        return "Private";
+    }
+
+    /**
+     * @return string
+     */
+    public function getOwner(): string
+    {
+        return $this->owner;
     }
 
     /**
@@ -27,29 +80,5 @@ class ListTask
     public function getTabTask(): array
     {
         return $this->tabTask;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getVisibility()
-    {
-        return $this->visibility;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getOwner()
-    {
-        return $this->owner;
     }
 }
