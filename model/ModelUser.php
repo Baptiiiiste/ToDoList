@@ -60,7 +60,7 @@ class ModelUser{
      * @return void
      * @throws Exception
      */
-    public function createUser(Connection $con, string $login, string $password): void
+    public function createUser(Connection $con, string $login, string $password): bool
     {
         global $rep, $vues;
         $userGateway = new UserGateway($con);
@@ -72,11 +72,12 @@ class ModelUser{
 
         try{
             $userGateway->insert($login, $hashedPassword);
-            $this->connection($con, $login, $password);
         }catch (Exception $e){
             $TabVueEreur[] = "This pseudo is already taken";
             require($rep.$vues['erreur']);
+            return false;
         }
+        return true;
     }
 
 

@@ -175,8 +175,9 @@ class ControllerPublic{
         if($user->isUser() != null){
             require($rep.$vues['public']);
         }else{
-            $user->createUser($con, $pseudo, $password);
-            $user->connection($con, $pseudo, $password);
+            if($user->createUser($con, $pseudo, $password) == true){
+                $user->connection($con, $pseudo, $password);
+            }
         }
     }
 

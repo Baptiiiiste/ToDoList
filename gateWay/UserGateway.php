@@ -20,7 +20,7 @@ class UserGateway
      * @param string $password
      * @return void
      */
-    public function insert(string $login, string $password): void
+    public function insert(string $login, string $password)
     {
         $query = 'INSERT INTO user (login, password) VALUES (:login, :password)';
         $this->con->executeQuery($query, array(':login' => array($login, PDO::PARAM_STR), ':password' => array($password,  PDO::PARAM_STR)));
@@ -31,7 +31,7 @@ class UserGateway
      * @return mixed
      * @throws Exception
      */
-    public function getPassword(string $login): mixed
+    public function getPassword(string $login): string
     {
         $login = Validation::val_string($login);
         $query = "SELECT password FROM user WHERE login=:login";
