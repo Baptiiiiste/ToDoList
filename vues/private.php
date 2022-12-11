@@ -26,9 +26,9 @@
             </form>
         </div>
 
-        <div class="d-flex flex-row justify-content-center">
-            <div class="d-flex flex-column m-5 align-items-center">
-                <h3 class="mb-5">Private Lists</h3>
+        <div class="d-flex flex-column justify-content-center m-5 align-items-center">
+            <h3>Private Lists</h3>
+            <div class="d-flex flex-column-reverse m-5 align-items-center ">
                 <?php
                 if(count($listTDLPrivate) == 0){
                     echo '<p>No List</p>';
