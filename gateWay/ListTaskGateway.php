@@ -72,10 +72,10 @@ class ListTaskGateway
     {
         $tab = [];
         if($visibility){
-            $query = 'SELECT id, name, visibility, owner FROM listtask WHERE visibility = :visibility ORDER BY name ASC LIMIT :page, :n';
+            $query = 'SELECT id, name, visibility, owner FROM listtask WHERE visibility = :visibility LIMIT :page, :n';
             $this->con->executeQuery($query, array(':visibility' => array(true, PDO::PARAM_BOOL), ':page' => array(($page-1)*$nbTodoList_par_page, PDO::PARAM_INT), ':n' => array($nbTodoList_par_page, PDO::PARAM_INT)));
         } else {
-            $query = 'SELECT id, name, visibility, owner FROM listtask WHERE visibility = :visibility AND owner = :owner ORDER BY name ASC LIMIT :page, :n';
+            $query = 'SELECT id, name, visibility, owner FROM listtask WHERE visibility = :visibility AND owner = :owner LIMIT :page, :n';
             $this->con->executeQuery($query, array(':visibility' => array(false, PDO::PARAM_BOOL), ':owner' => array($owner, PDO::PARAM_STR), ':page' => array(($page-1)*$nbTodoList_par_page, PDO::PARAM_INT), ':n' => array($nbTodoList_par_page, PDO::PARAM_INT)));
         }
         $result = $this->con->getResults();

@@ -17,7 +17,7 @@ class ListTask
     /**
      * @var
      */
-    private string $owner;
+    private $owner;
     /**
      * @var array
      */
@@ -69,7 +69,7 @@ class ListTask
     /**
      * @return string
      */
-    public function getOwner(): string
+    public function getOwner()
     {
         return $this->owner;
     }
