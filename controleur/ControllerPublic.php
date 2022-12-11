@@ -155,13 +155,12 @@ class ControllerPublic{
     function createTheUser(Connection $con, string $pseudo, string $password){
         global $rep,$vues;
         $user = new ModelUser();
-        if($user->isConnected() == true){
+        if($user->isUser() != null){
             require($rep.$vues['public']);
         }else{
             $user->createUser($con, $pseudo, $password);
             $user->connection($con, $pseudo, $password);
         }
-
     }
 
 }

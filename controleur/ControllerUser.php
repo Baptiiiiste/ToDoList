@@ -32,6 +32,11 @@ class ControllerUser
                     $this->addPrivateTask($con, $name, $description, $listTask);
                     $this->showTDLPrivate($con);
                     break;
+                case "deletePrivateTask":
+                    $id = Validation::val_string($_REQUEST['index']);
+                    $this->deletePrivateTask($con, $id);
+                    $this->showTDLPrivate($con);
+                    break;
                 case "disconnect":
                     $this->logOut();
                     break;
@@ -104,9 +109,18 @@ class ControllerUser
      */
     function addPrivateTask(Connection $con, string $name, string $description, string $listTask){
         $tdl = new ModelTodoList();
-        $modelUser = new ModelUser();
-        $user = $modelUser->getConnectedUser();
-        $tdl->addTask($con, $name, $description, $listTask, $user);
+        $tdl->addTask($con, $name, $description, $listTask);
+    }
+
+    /**
+     * @param Connection $con
+     * @param int $id
+     * @return void
+     * @throws Exception
+     */
+    function deletePrivateTask(Connection $con, int $id){
+        $tdl = new ModelTodoList();
+        $tdl->deleteTask($con, $id);
     }
 
     /**
