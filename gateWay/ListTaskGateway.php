@@ -35,11 +35,11 @@ class ListTaskGateway
     public function delete(int $id, $owner): void
     {
         if($owner == null){
-            $query = 'DELETE FROM listtask WHERE id=:id';
-            $this->con->executeQuery($query, array(':id' => array($id, PDO::PARAM_INT)));
-        } else {
             $query = 'DELETE FROM listtask WHERE id=:id AND owner IS NULL';
             $this->con->executeQuery($query, array(':id' => array($id, PDO::PARAM_INT)));
+        } else {
+            $query = 'DELETE FROM listtask WHERE id=:id AND owner = :owner';
+            $this->con->executeQuery($query, array(':id' => array($id, PDO::PARAM_INT), ':owner' => array($owner, PDO::PARAM_STR)));
         }
 
     }

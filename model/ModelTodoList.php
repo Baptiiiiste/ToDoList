@@ -77,7 +77,8 @@ class ModelTodoList
             $gateway = new ListTaskGateway($con);
             $gateway->delete($id, $owner);
         } catch (PDOException $e) {
-            throw new Exception("List doesn't exists");
+            //throw new Exception("List doesn't exists");
+            throw new Exception($e->getMessage());
         }
     }
 

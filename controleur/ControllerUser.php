@@ -75,7 +75,7 @@ class ControllerUser
         $tdl = new ModelTodoList();
         $modelUser = new ModelUser();
 
-        $nbTodoList_par_page = 10;
+        $nbTodoList_par_page = 3;
         $nbTodoList = $tdl->getNbTDL($con, false);
 
         $nbPages = ceil($nbTodoList/$nbTodoList_par_page);

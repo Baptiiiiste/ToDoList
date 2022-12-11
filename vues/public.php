@@ -20,7 +20,9 @@
         <!-- =================================================================================== -->
 
         <div class="d-flex flex-row justify-content-center p-4 border-bottom">
-            <form class="add-items d-flex" action="index.php?action=addPublicTDL" method="post">
+            <?php
+            echo '<form class="add-items d-flex" action="index.php?action=addPublicTDL&page='.$page.'" method="post">';
+            ?>
                 <input type="text" name="namePublicTDL" class="form-control todo-list-input" placeholder="Name" style="margin-right: 5px">
                 <button type="submit" class="add btn btn-primary font-weight-bold todo-list-add-btn">Add</button>
             </form>
@@ -49,7 +51,7 @@
 
     <div>
         <?php
-        require ("vues/pagination.php");
+        require("vues/paginationPublic.php");
         require ("vues/footer.php")
         ?>
     </div>
