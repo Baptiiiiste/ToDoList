@@ -17,11 +17,11 @@ class ListTask
     /**
      * @var
      */
-    private $owner;
+    private string $owner;
     /**
      * @var array
      */
-    private $tabTask = [];
+    private array $tabTask = [];
 
     /**
      * @param int $id

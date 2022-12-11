@@ -10,7 +10,7 @@ class Autoload
     /**
      * @return void
      */
-    public static function charger()
+    public static function charger(): void
     {
         if(null !== self::$_instance) {
             throw new RuntimeException(sprintf('%s is already started', __CLASS__));
@@ -27,7 +27,7 @@ class Autoload
     /**
      * @return void
      */
-    public static function shutDown()
+    public static function shutDown(): void
     {
         if(null !== self::$_instance) {
 
@@ -43,7 +43,7 @@ class Autoload
      * @param $class
      * @return void
      */
-    private static function _autoload($class)
+    private static function _autoload($class): void
     {
         global $rep;
         $filename = $class.'.php';

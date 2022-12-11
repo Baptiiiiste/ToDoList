@@ -21,7 +21,8 @@ class TaskGateway
      * @param string $listTask
      * @return void
      */
-    public function insert(string $name, string $description, string $listTask) {
+    public function insert(string $name, string $description, string $listTask): void
+    {
         $query = 'INSERT INTO task (name, description, listTask) VALUES (:name, :description, :listTask)';
         $this->con->executeQuery($query, array(':name' => array($name, PDO::PARAM_STR), ':description' => array($description, PDO::PARAM_STR), ':listTask' => array($listTask, PDO::PARAM_STR)));
     }
@@ -30,7 +31,8 @@ class TaskGateway
      * @param int $id
      * @return void
      */
-    public function delete(int $id){
+    public function delete(int $id): void
+    {
         $query = 'DELETE FROM task WHERE id=:id';
         $this->con->executeQuery($query, array(':id' => array($id, PDO::PARAM_INT)));
     }

@@ -64,12 +64,21 @@ class ControllerUser
      * @return void
      * @throws Exception
      */
-    function showTDLPrivate(Connection $con){
+    function showTDLPrivate(Connection $con): void
+    {
         global $rep,$vues;
         $tdl = new ModelTodoList();
         $modelUser = new ModelUser();
+
+        $nbTodoList_par_page = 10;
+        $nbTodoList = $tdl->getNbTDL($con, false);
+
+        $nbPages = ceil($nbTodoList/$nbTodoList_par_page);
+        $page = Validation::val_page($_REQUEST['page'], $nbPages);
+
         $user = $modelUser->getConnectedUser();
-        $listTDLPrivate = $tdl->getAllTDL($con, 'private', $user);
+        $listTDLPrivate = $tdl->getAllTDL($con, $page, $nbTodoList_par_page, false, $user);
+
         require($rep.$vues['private']);
     }
 
@@ -79,7 +88,8 @@ class ControllerUser
      * @return void
      * @throws Exception
      */
-    function addPrivateTDL(Connection $con, string $name){
+    function addPrivateTDL(Connection $con, string $name): void
+    {
         $tdl = new ModelTodoList();
         $modelUser = new ModelUser();
         $user = $modelUser->getConnectedUser();
@@ -92,7 +102,8 @@ class ControllerUser
      * @return void
      * @throws Exception
      */
-    function deletePrivateTDL(Connection $con, int $id){
+    function deletePrivateTDL(Connection $con, int $id): void
+    {
         $tdl = new ModelTodoList();
         $modelUser = new ModelUser();
         $user = $modelUser->getConnectedUser();
@@ -107,7 +118,8 @@ class ControllerUser
      * @return void
      * @throws Exception
      */
-    function addPrivateTask(Connection $con, string $name, string $description, string $listTask){
+    function addPrivateTask(Connection $con, string $name, string $description, string $listTask): void
+    {
         $tdl = new ModelTodoList();
         $tdl->addTask($con, $name, $description, $listTask);
     }
@@ -118,7 +130,8 @@ class ControllerUser
      * @return void
      * @throws Exception
      */
-    function deletePrivateTask(Connection $con, int $id){
+    function deletePrivateTask(Connection $con, int $id): void
+    {
         $tdl = new ModelTodoList();
         $tdl->deleteTask($con, $id);
     }
@@ -126,7 +139,8 @@ class ControllerUser
     /**
      * @return void
      */
-    function logOut(){
+    function logOut(): void
+    {
         global $rep,$vues;
         session_unset();
         session_destroy();
