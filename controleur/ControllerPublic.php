@@ -76,11 +76,20 @@ class ControllerPublic{
     /**
      * @param Connection $con
      * @return void
+     * @throws Exception
      */
-    function showTDLPublic(Connection $con){
+    function showTDLPublic(Connection $con): void
+    {
         global $rep,$vues;
         $tdl = new ModelTodoList();
-        $listTDLPublic = $tdl->getAllTDL($con, 'public');
+
+        $nbTodoList_par_page = 3;
+        $nbTodoList = $tdl->getNbTDL($con, true);
+
+        $nbPages = ceil($nbTodoList/$nbTodoList_par_page);
+        $page = Validation::val_page($_REQUEST['page'], $nbPages);
+
+        $listTDLPublic = $tdl->getAllTDL($con, $page, $nbTodoList_par_page, true);
         require($rep.$vues['public']);
     }
 
@@ -90,7 +99,8 @@ class ControllerPublic{
      * @return void
      * @throws Exception
      */
-    function addPublicTDL(Connection $con, string $name){
+    function addPublicTDL(Connection $con, string $name): void
+    {
         $tdl = new ModelTodoList();
         $tdl->addTDL($con, $name, true);
     }
@@ -101,7 +111,8 @@ class ControllerPublic{
      * @return void
      * @throws Exception
      */
-    function deletePublicTDL(Connection $con, string $name){
+    function deletePublicTDL(Connection $con, string $name): void
+    {
         $tdl = new ModelTodoList();
         $tdl->deleteTDL($con, $name);
     }
@@ -114,7 +125,8 @@ class ControllerPublic{
      * @return void
      * @throws Exception
      */
-    function addPublicTask(Connection $con, string $name, string $description, string $listTask){
+    function addPublicTask(Connection $con, string $name, string $description, string $listTask): void
+    {
         $tdl = new ModelTodoList();
         $tdl->addTask($con, $name, $description, $listTask);
     }
@@ -125,7 +137,8 @@ class ControllerPublic{
      * @return void
      * @throws Exception
      */
-    function deletePublicTask(Connection $con, int $id){
+    function deletePublicTask(Connection $con, int $id): void
+    {
         $tdl = new ModelTodoList();
         $tdl->deleteTask($con, $id);
     }
@@ -135,8 +148,10 @@ class ControllerPublic{
      * @param string $pseudo
      * @param string $password
      * @return void
+     * @throws Exception
      */
-    function logTheUser(Connection $con, string $pseudo, string $password){
+    function logTheUser(Connection $con, string $pseudo, string $password): void
+    {
         global $rep,$vues;
         $user = new ModelUser();
         if($user->isUser() != null){
@@ -151,8 +166,10 @@ class ControllerPublic{
      * @param string $pseudo
      * @param string $password
      * @return void
+     * @throws Exception
      */
-    function createTheUser(Connection $con, string $pseudo, string $password){
+    function createTheUser(Connection $con, string $pseudo, string $password): void
+    {
         global $rep,$vues;
         $user = new ModelUser();
         if($user->isUser() != null){

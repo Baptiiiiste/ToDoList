@@ -10,35 +10,40 @@ class ModelTodoList
 
     /**
      * @param Connection $con
-     * @param string $visibility
-     * @param string $owner
+     * @param int $page
+     * @param int $nbTodoList_par_page
+     * @param bool $visibility
+     * @param $owner
      * @return array
      */
-    function getAllTDL(Connection $con, string $visibility, string $owner = ""): array {
+    function getAllTDL(Connection $con, int $page, int $nbTodoList_par_page, bool $visibility, $owner = null): array
+    {
         $gateway = new ListTaskGateway($con);
+        return $gateway->getList($visibility, $page, $nbTodoList_par_page, $owner);
+    }
 
-        if($visibility == 'public'){
-            return $gateway->getPublicList();
-        }
-        return $gateway->getPrivateList($owner);
+    function getNbTDL(Connection $con, bool $visibility): int
+    {
+        $gateway = new ListTaskGateway($con);
+        return $gateway->getNbTDL($visibility);
     }
 
     /**
      * @param Connection $con
      * @param string $name
      * @param bool $visibility
-     * @param string $owner
+     * @param $owner
      * @return void
      * @throws Exception
      */
-    function addTDL(Connection $con, string $name, bool $visibility, string $owner = ""){
+    function addTDL(Connection $con, string $name, bool $visibility, $owner = null): void
+    {
         try{
             $gateway = new ListTaskGateway($con);
             $gateway->insert($name, $owner, $visibility);
         } catch (PDOException $e) {
             throw new Exception("List already exists");
         }
-
     }
 
     /**
@@ -49,7 +54,8 @@ class ModelTodoList
      * @return void
      * @throws Exception
      */
-    function addTask(Connection $con, string $name, string $description, string $listTask){
+    function addTask(Connection $con, string $name, string $description, string $listTask): void
+    {
         try {
             $gateway = new TaskGateway($con);
             $gateway->insert($name, $description, $listTask);
@@ -61,10 +67,12 @@ class ModelTodoList
     /**
      * @param Connection $con
      * @param int $id
+     * @param $owner
      * @return void
      * @throws Exception
      */
-    function deleteTDL(Connection $con, int $id, string $owner = ""){
+    function deleteTDL(Connection $con, int $id, $owner = null): void
+    {
         try {
             $gateway = new ListTaskGateway($con);
             $gateway->delete($id, $owner);
@@ -79,7 +87,8 @@ class ModelTodoList
      * @return void
      * @throws Exception
      */
-    function deleteTask(Connection $con, int $id){
+    function deleteTask(Connection $con, int $id): void
+    {
         try {
             $gateway = new TaskGateway($con);
             $gateway->delete($id);

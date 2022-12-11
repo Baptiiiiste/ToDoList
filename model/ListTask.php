@@ -21,7 +21,7 @@ class ListTask
     /**
      * @var array
      */
-    private $tabTask = [];
+    private array $tabTask = [];
 
     /**
      * @param int $id
@@ -69,7 +69,7 @@ class ListTask
     /**
      * @return string
      */
-    public function getOwner(): string
+    public function getOwner()
     {
         return $this->owner;
     }

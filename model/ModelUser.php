@@ -6,7 +6,8 @@ class ModelUser{
      * @return User|null
      * @throws Exception
      */
-    public function isUser(){
+    public function isUser(): ?User
+    {
         if(isset($_SESSION['login'])){
             $login = Validation::val_string($_SESSION['login']);
             return new User($login);
@@ -19,7 +20,8 @@ class ModelUser{
      * @return string
      * @throws Exception
      */
-    function getConnectedUser(){
+    function getConnectedUser(): string
+    {
         $login = Validation::val_string($_SESSION['login']);
         if ($login == ""){
             throw new Exception("Error login");
@@ -35,7 +37,8 @@ class ModelUser{
      * @return void
      * @throws Exception
      */
-    public function connection(Connection $con, string $login, string $password){
+    public function connection(Connection $con, string $login, string $password): void
+    {
         $userGateway = new UserGateway($con);
 
         $login = Validation::val_string($login);
@@ -57,7 +60,8 @@ class ModelUser{
      * @return void
      * @throws Exception
      */
-    public function createUser(Connection $con, string $login, string $password){
+    public function createUser(Connection $con, string $login, string $password): void
+    {
         global $rep, $vues;
         $userGateway = new UserGateway($con);
 

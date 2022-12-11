@@ -1,4 +1,4 @@
-<div class="card px-3 mb-4">
+<div class="card p-3 m-4">
     <div class="card-body">
         <div class="d-flex flex-row justify-content-between mb-3">
             <?php
