@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : sam. 10 déc. 2022 à 20:39
+-- Généré le : dim. 11 déc. 2022 à 17:41
 -- Version du serveur : 5.7.36
 -- Version de PHP : 7.4.26
 
@@ -35,16 +35,16 @@ CREATE TABLE IF NOT EXISTS `listtask` (
   `owner` varchar(50) COLLATE utf8_bin DEFAULT NULL,
   PRIMARY KEY (`id`,`visibility`),
   KEY `owner` (`owner`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Déchargement des données de la table `listtask`
 --
 
 INSERT INTO `listtask` (`id`, `name`, `visibility`, `owner`) VALUES
-(19, 'test', 1, NULL),
-(20, 'sss', 0, 'loris'),
-(21, 'test', 0, 'loris');
+(50, 'School', 1, NULL),
+(51, 'House', 0, 'loris'),
+(52, 'Homework', 0, 'baptiste');
 
 -- --------------------------------------------------------
 
@@ -61,7 +61,18 @@ CREATE TABLE IF NOT EXISTS `task` (
   `listTask` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `listTask` (`listTask`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Déchargement des données de la table `task`
+--
+
+INSERT INTO `task` (`id`, `name`, `description`, `done`, `listTask`) VALUES
+(50, 'PHP', 'Best course', 0, 50),
+(51, 'Cook', 'Make pasta', 0, 51),
+(52, 'Housework', 'Clean the floor', 1, 51),
+(53, 'Maths', 'Ex 2 page 62', 0, 52),
+(54, 'English', 'Ex 5 page 152', 0, 52);
 
 -- --------------------------------------------------------
 

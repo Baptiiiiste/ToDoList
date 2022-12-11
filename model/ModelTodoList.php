@@ -97,20 +97,26 @@ class ModelTodoList
         }
     }
 
-//    /**
-//     * @param Connection $con
-//     * @param int $id
-//     * @return void
-//     */
-//    function doTask(Connection $con, int $id){
-//
-//        $gateway = new TaskGateway($con);
-//        $task = $gateway->getTask($id);
-//
-//        if($task->isDone()){
-//
-//        }
-//
-//    }
+    /**
+     * @param Connection $con
+     * @param int $id
+     * @return void
+     * @throws Exception
+     */
+    function doTask(Connection $con, int $id): void
+    {
+        try {
+            $gateway = new TaskGateway($con);
+            $task = $gateway->getTask($id);
+
+            if($task->isDone()){
+                $gateway->doDone($id, false);
+            } else {
+                $gateway->doDone($id, true);
+            }
+        } catch (PDOException $e) {
+            throw new Exception("Task doesn't exists");
+        }
+    }
 
 }

@@ -37,6 +37,11 @@ class ControllerUser
                     $this->deletePrivateTask($con, $id);
                     $this->showTDLPrivate($con);
                     break;
+                case "doPrivateTask":
+                    $id = Validation::val_string($_REQUEST['index']);
+                    $this->actionPrivateTask($con, $id);
+                    $this->showTDLPrivate($con);
+                    break;
                 case "disconnect":
                     $this->logOut();
                     break;
@@ -146,5 +151,11 @@ class ControllerUser
         session_destroy();
         $_SESSION = array();
         require($rep.$vues['loginFormUser']);
+    }
+
+    private function actionPrivateTask(Connection $con, string $id)
+    {
+        $tdl = new ModelTodoList();
+        $tdl->doTask($con, $id);
     }
 }
