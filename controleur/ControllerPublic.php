@@ -29,16 +29,19 @@ class ControllerPublic{
                     $description = Validation::val_string($_POST['descriptionPublicTask']);
                     $listTask = Validation::val_string($_REQUEST['index']);
                     $this->addPublicTask($con, $name, $description, $listTask);
+                    header("Location: index.php");
                     $this->showTDLPublic($con);
                     break;
                 case "deletePublicTask":
                     $id = Validation::val_string($_REQUEST['index']);
                     $this->deletePublicTask($con, $id);
+                    header("Location: index.php");
                     $this->showTDLPublic($con);
                     break;
                 case "doPublicTask":
                     $id = Validation::val_string($_REQUEST['index']);
                     $this->actionPublicTask($con, $id);
+                    header("Location: index.php");
                     $this->showTDLPublic($con);
                     break;
                 case "login":
@@ -48,6 +51,7 @@ class ControllerPublic{
                     $pseudo = Validation::val_string($_POST['pseudo']);
                     $password = Validation::val_string($_POST['password']);
                     $this->logTheUser($con, $pseudo, $password);
+                    header("Location: index.php");
                     $this->showTDLPublic($con);
                     break;
                 case "signin":
@@ -57,6 +61,7 @@ class ControllerPublic{
                     $pseudo = Validation::val_string($_POST['pseudo']);
                     $password = Validation::val_string($_POST['password']);
                     $this->createTheUser($con, $pseudo, $password);
+                    header("Location: index.php");
                     $this->showTDLPublic($con);
                     break;
                 default:

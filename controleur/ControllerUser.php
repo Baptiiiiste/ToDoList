@@ -18,11 +18,13 @@ class ControllerUser
                 case "addPrivateTDL":
                     $name = Validation::val_string($_POST['namePrivateTDL']);
                     $this->addPrivateTDL($con, $name);
+                    header("Location: index.php?action=private");
                     $this->showTDLPrivate($con);
                     break;
                 case "deletePrivateTDL":
                     $id = Validation::val_string($_REQUEST['index']);
                     $this->deletePrivateTDL($con, $id);
+                    header("Location: index.php?action=private");
                     $this->showTDLPrivate($con);
                     break;
                 case "addPrivateTask":
@@ -30,16 +32,19 @@ class ControllerUser
                     $description = Validation::val_string($_POST['descriptionPrivateTask']);
                     $listTask = Validation::val_string($_REQUEST['index']);
                     $this->addPrivateTask($con, $name, $description, $listTask);
+                    header("Location: index.php?action=private");
                     $this->showTDLPrivate($con);
                     break;
                 case "deletePrivateTask":
                     $id = Validation::val_string($_REQUEST['index']);
                     $this->deletePrivateTask($con, $id);
+                    header("Location: index.php?action=private");
                     $this->showTDLPrivate($con);
                     break;
                 case "doPrivateTask":
                     $id = Validation::val_string($_REQUEST['index']);
                     $this->actionPrivateTask($con, $id);
+                    header("Location: index.php?action=private");
                     $this->showTDLPrivate($con);
                     break;
                 case "disconnect":
