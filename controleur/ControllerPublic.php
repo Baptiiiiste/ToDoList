@@ -128,15 +128,16 @@ class ControllerPublic{
     }
 
     /**
+     * @param Connection $con
      * @param string $name
      * @param string $description
      * @param string $listTask
      * @return void
      * @throws Exception
      */
-    function addPublicTask(string $name, string $description, string $listTask): void
+    function addPublicTask(Connection $con, string $name, string $description, string $listTask): void
     {
-        $this->tdl->addTask($name, $description, $listTask);
+        $this->tdl->addTask($con, $name, $description, $listTask);
     }
 
     /**

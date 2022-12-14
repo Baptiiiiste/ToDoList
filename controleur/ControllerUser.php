@@ -43,7 +43,7 @@ class ControllerUser
                     $name = Validation::val_string($_POST['namePrivateTask']);
                     $description = Validation::val_string($_POST['descriptionPrivateTask']);
                     $listTask = Validation::val_string($_REQUEST['index']);
-                    $this->addPrivateTask($name, $description, $listTask);
+                    $this->addPrivateTask($con, $name, $description, $listTask);
                     header("Location: index.php?action=private");
                     $this->showTDLPrivate();
                     break;
@@ -124,15 +124,16 @@ class ControllerUser
     }
 
     /**
+     * @param Connection $con
      * @param string $name
      * @param string $description
      * @param string $listTask
      * @return void
      * @throws Exception
      */
-    function addPrivateTask(string $name, string $description, string $listTask): void
+    function addPrivateTask(Connection $con, string $name, string $description, string $listTask): void
     {
-        $this->tdl->addTask($name, $description, $listTask);
+        $this->tdl->addTask($con, $name, $description, $listTask);
     }
 
     /**

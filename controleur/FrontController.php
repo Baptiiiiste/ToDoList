@@ -52,7 +52,7 @@ class FrontController
      * @param $action
      * @return int|string|null
      */
-    public function getActor($listAction, $action): int|string|null
+    public function getActor($listAction, $action)
     {
         foreach ($listAction as $actor){
             if (in_array($action, $actor)){

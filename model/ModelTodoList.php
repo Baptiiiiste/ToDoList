@@ -49,18 +49,20 @@ class ModelTodoList
     }
 
     /**
+     * @param Connection $con
      * @param string $name
      * @param string $description
      * @param string $listTask
      * @return void
      * @throws Exception
      */
-    function addTask(string $name, string $description, string $listTask): void
+    function addTask(Connection $con, string $name, string $description, string $listTask): void
     {
         try {
-            $this->gateway->insert($name, $description, $listTask);
+            $gateway = new TaskGateway($con);
+            $gateway->insert($name, $description, $listTask);
         } catch (PDOException $e) {
-            throw new Exception("Task already exists");
+            throw new Exception($e->getMessage());
         }
     }
 
