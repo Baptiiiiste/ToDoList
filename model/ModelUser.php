@@ -49,6 +49,8 @@ class ModelUser{
         if(password_verify($password, $hashedPassword)){
             $_SESSION['role'] = 'user';
             $_SESSION['login'] = $login;
+        } else {
+            throw new Exception("Error wrong password");
         }
     }
 
@@ -72,10 +74,8 @@ class ModelUser{
 
         try{
             $userGateway->insert($login, $hashedPassword);
-        }catch (Exception $e){
-            $TabVueEreur[] = "This pseudo is already taken";
-            require($rep.$vues['erreur']);
-            return false;
+        }catch (PDOException $e){
+            throw new Exception("This login is already taken");
         }
         return true;
     }

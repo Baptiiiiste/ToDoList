@@ -24,11 +24,13 @@ class ControllerPublic{
                 case "addPublicTDL":
                     $name = Validation::val_string($_POST['namePublicTDL']);
                     $this->addPublicTDL($name);
+                    header("Location: index.php");
                     $this->showTDLPublic();
                     break;
                 case "deletePublicTDL":
                     $id = Validation::val_string($_REQUEST['index']);
                     $this->deletePublicTDL($id);
+                    header("Location: index.php");
                     $this->showTDLPublic();
                     break;
                 case "addPublicTask":

@@ -62,7 +62,7 @@ class ModelTodoList
             $gateway = new TaskGateway($con);
             $gateway->insert($name, $description, $listTask);
         } catch (PDOException $e) {
-            throw new Exception($e->getMessage());
+            throw new Exception("Task already exists");
         }
     }
 
