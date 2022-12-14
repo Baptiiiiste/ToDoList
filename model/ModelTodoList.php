@@ -2,83 +2,80 @@
 
 class ModelTodoList
 {
-
     /**
-     *
+     * @var ListTaskGateway
      */
-    public function __construct(){}
+    private ListTaskGateway $gateway;
+
+    public function __construct(Connection $con){
+        $this->gateway = new ListTaskGateway($con);
+    }
 
     /**
-     * @param Connection $con
      * @param int $page
      * @param int $nbTodoList_par_page
      * @param bool $visibility
-     * @param $owner
+     * @param null $owner
      * @return array
      */
-    function getAllTDL(Connection $con, int $page, int $nbTodoList_par_page, bool $visibility, $owner = null): array
+    function getAllTDL(int $page, int $nbTodoList_par_page, bool $visibility, $owner = null): array
     {
-        $gateway = new ListTaskGateway($con);
-        return $gateway->getList($visibility, $page, $nbTodoList_par_page, $owner);
-    }
-
-    function getNbTDL(Connection $con, bool $visibility): int
-    {
-        $gateway = new ListTaskGateway($con);
-        return $gateway->getNbTDL($visibility);
+        return $this->gateway->getList($visibility, $page, $nbTodoList_par_page, $owner);
     }
 
     /**
-     * @param Connection $con
+     * @param bool $visibility
+     * @return int
+     */
+    function getNbTDL(bool $visibility): int
+    {
+        return $this->gateway->getNbTDL($visibility);
+    }
+
+    /**
      * @param string $name
      * @param bool $visibility
-     * @param $owner
+     * @param null $owner
      * @return void
      * @throws Exception
      */
-    function addTDL(Connection $con, string $name, bool $visibility, $owner = null): void
+    function addTDL(string $name, bool $visibility, $owner = null): void
     {
         try{
-            $gateway = new ListTaskGateway($con);
-            $gateway->insert($name, $owner, $visibility);
+            $this->gateway->insert($name, $owner, $visibility);
         } catch (PDOException $e) {
             throw new Exception("List already exists");
         }
     }
 
     /**
-     * @param Connection $con
      * @param string $name
      * @param string $description
      * @param string $listTask
      * @return void
      * @throws Exception
      */
-    function addTask(Connection $con, string $name, string $description, string $listTask): void
+    function addTask(string $name, string $description, string $listTask): void
     {
         try {
-            $gateway = new TaskGateway($con);
-            $gateway->insert($name, $description, $listTask);
+            $this->gateway->insert($name, $description, $listTask);
         } catch (PDOException $e) {
             throw new Exception("Task already exists");
         }
     }
 
     /**
-     * @param Connection $con
      * @param int $id
-     * @param $owner
+     * @param null $owner
      * @return void
      * @throws Exception
      */
-    function deleteTDL(Connection $con, int $id, $owner = null): void
+    function deleteTDL(int $id, $owner = null): void
     {
         try {
-            $gateway = new ListTaskGateway($con);
-            $gateway->delete($id, $owner);
+            $this->gateway->delete($id, $owner);
         } catch (PDOException $e) {
-            //throw new Exception("List doesn't exists");
-            throw new Exception($e->getMessage());
+            throw new Exception("List doesn't exists");
         }
     }
 

@@ -20,7 +20,7 @@ class UserGateway
      * @param string $password
      * @return void
      */
-    public function insert(string $login, string $password)
+    public function insert(string $login, string $password): void
     {
         $query = 'INSERT INTO user (login, password) VALUES (:login, :password)';
         $this->con->executeQuery($query, array(':login' => array($login, PDO::PARAM_STR), ':password' => array($password,  PDO::PARAM_STR)));
@@ -36,7 +36,6 @@ class UserGateway
         $login = Validation::val_string($login);
         $query = "SELECT password FROM user WHERE login=:login";
         $this->con->executeQuery($query, array(":login" => array($login, PDO::PARAM_STR)));
-        $res = $this->con->getResults()[0]['password'];
-        return $res;
+        return $this->con->getResults()[0]['password'];
     }
 }

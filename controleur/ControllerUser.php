@@ -2,50 +2,62 @@
 
 class ControllerUser
 {
+    /**
+     * @var ModelTodoList
+     */
+    private ModelTodoList $tdl;
+    /**
+     * @var ModelUser
+     */
+    private ModelUser $modelUser;
+
     public function __construct(){
-        global $rep,$vues, $base, $login, $mdp;
+        global $rep, $vues, $base, $login, $mdp;
 
         $TabVueEreur = array();
         $con = new Connection($base, $login, $mdp);
+
+        $this->tdl = new ModelTodoList($con);
+        $this->modelUser = new ModelUser();
 
         try{
             $action = Validation::val_action($_REQUEST['action']);
 
             switch($action){
                 case "private":
-                    $this->showTDLPrivate($con);
+                    $this->showTDLPrivate();
                     break;
                 case "addPrivateTDL":
                     $name = Validation::val_string($_POST['namePrivateTDL']);
-                    $this->addPrivateTDL($con, $name);
+                    $this->addPrivateTDL($name);
                     header("Location: index.php?action=private");
-                    $this->showTDLPrivate($con);
+                    $this->showTDLPrivate();
                     break;
                 case "deletePrivateTDL":
                     $id = Validation::val_string($_REQUEST['index']);
-                    $this->deletePrivateTDL($con, $id);
+                    $this->deletePrivateTDL($id);
                     header("Location: index.php?action=private");
-                    $this->showTDLPrivate($con);
+                    $this->showTDLPrivate();
                     break;
                 case "addPrivateTask":
                     $name = Validation::val_string($_POST['namePrivateTask']);
                     $description = Validation::val_string($_POST['descriptionPrivateTask']);
                     $listTask = Validation::val_string($_REQUEST['index']);
-                    $this->addPrivateTask($con, $name, $description, $listTask);
+                    $this->addPrivateTask($name, $description, $listTask);
                     header("Location: index.php?action=private");
-                    $this->showTDLPrivate($con);
+                    $this->showTDLPrivate();
                     break;
                 case "deletePrivateTask":
                     $id = Validation::val_string($_REQUEST['index']);
                     $this->deletePrivateTask($con, $id);
                     header("Location: index.php?action=private");
-                    $this->showTDLPrivate($con);
+                    $this->showTDLPrivate();
                     break;
                 case "doPrivateTask":
                     $id = Validation::val_string($_REQUEST['index']);
                     $this->actionPrivateTask($con, $id);
                     header("Location: index.php?action=private");
-                    $this->showTDLPrivate($con);
+                    $this->showTDLPrivate();
                     break;
                 case "disconnect":
                     $this->logOut();
@@ -70,68 +82,57 @@ class ControllerUser
     }
 
     /**
-     * @param Connection $con
      * @return void
      * @throws Exception
      */
-    function showTDLPrivate(Connection $con): void
+    function showTDLPrivate(): void
     {
         global $rep,$vues;
-        $tdl = new ModelTodoList();
-        $modelUser = new ModelUser();
 
         $nbTodoList_par_page = 3;
-        $nbTodoList = $tdl->getNbTDL($con, false);
+        $nbTodoList = $this->tdl->getNbTDL(false);
 
         $nbPages = ceil($nbTodoList/$nbTodoList_par_page);
         $page = Validation::val_page($_REQUEST['page'], $nbPages);
 
-        $user = $modelUser->getConnectedUser();
-        $listTDLPrivate = $tdl->getAllTDL($con, $page, $nbTodoList_par_page, false, $user);
+        $user = $this->modelUser->getConnectedUser();
+        $listTDLPrivate = $this->tdl->getAllTDL($page, $nbTodoList_par_page, false, $user);
 
         require($rep.$vues['private']);
     }
 
     /**
-     * @param Connection $con
      * @param string $name
      * @return void
      * @throws Exception
      */
-    function addPrivateTDL(Connection $con, string $name): void
+    function addPrivateTDL(string $name): void
     {
-        $tdl = new ModelTodoList();
-        $modelUser = new ModelUser();
-        $user = $modelUser->getConnectedUser();
-        $tdl->addTDL($con, $name, false, $user);
+        $user = $this->modelUser->getConnectedUser();
+        $this->tdl->addTDL($name, false, $user);
     }
 
     /**
-     * @param Connection $con
      * @param int $id
      * @return void
      * @throws Exception
      */
-    function deletePrivateTDL(Connection $con, int $id): void
+    function deletePrivateTDL(int $id): void
     {
-        $tdl = new ModelTodoList();
-        $modelUser = new ModelUser();
-        $user = $modelUser->getConnectedUser();
-        $tdl->deleteTDL($con, $id, $user);
+        $user = $this->modelUser->getConnectedUser();
+        $this->tdl->deleteTDL($id, $user);
     }
 
     /**
-     * @param Connection $con
      * @param string $name
      * @param string $description
      * @param string $listTask
      * @return void
      * @throws Exception
      */
-    function addPrivateTask(Connection $con, string $name, string $description, string $listTask): void
+    function addPrivateTask(string $name, string $description, string $listTask): void
     {
-        $tdl = new ModelTodoList();
-        $tdl->addTask($con, $name, $description, $listTask);
+        $this->tdl->addTask($name, $description, $listTask);
     }
 
     /**
@@ -142,8 +143,7 @@ class ControllerUser
      */
     function deletePrivateTask(Connection $con, int $id): void
     {
-        $tdl = new ModelTodoList();
-        $tdl->deleteTask($con, $id);
+        $this->tdl->deleteTask($con, $id);
     }
 
     /**
@@ -158,9 +158,14 @@ class ControllerUser
         require($rep.$vues['loginFormUser']);
     }
 
-    private function actionPrivateTask(Connection $con, string $id)
+    /**
+     * @param Connection $con
+     * @param string $id
+     * @return void
+     * @throws Exception
+     */
+    private function actionPrivateTask(Connection $con, string $id): void
     {
-        $tdl = new ModelTodoList();
-        $tdl->doTask($con, $id);
+        $this->tdl->doTask($con, $id);
     }
 }

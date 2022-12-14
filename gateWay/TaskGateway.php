@@ -3,14 +3,14 @@
 class TaskGateway
 {
     /**
-     * @var
+     * @var Connection
      */
-    private $con;
+    private Connection $con;
 
     /**
-     * @param $con
+     * @param Connection $con
      */
-    public function __construct($con)
+    public function __construct(Connection $con)
     {
         $this->con = $con;
     }
@@ -37,6 +37,11 @@ class TaskGateway
         $this->con->executeQuery($query, array(':id' => array($id, PDO::PARAM_INT)));
     }
 
+    /**
+     * @param int $id
+     * @param bool $done
+     * @return void
+     */
     public function doDone(int $id, bool $done): void
     {
         $query = 'UPDATE task SET done = :done WHERE id=:id';

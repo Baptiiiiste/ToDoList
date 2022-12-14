@@ -3,14 +3,14 @@
 class ListTaskGateway
 {
     /**
-     * @var
+     * @var Connection
      */
-    private $con;
+    private Connection $con;
 
     /**
-     * @param $con
+     * @param Connection $con
      */
-    public function __construct($con)
+    public function __construct(Connection $con)
     {
         $this->con = $con;
     }
@@ -87,11 +87,14 @@ class ListTaskGateway
         return $tab;
     }
 
+    /**
+     * @param bool $visibility
+     * @return int
+     */
     public function getNbTDL(bool $visibility): int
     {
         $query = "SELECT count(*) FROM listtask WHERE visibility = :visibility";
         $this->con->executeQuery($query, array(":visibility" => array($visibility, PDO::PARAM_BOOL)));
-        $res = $this->con->getResults()[0][0];
-        return $res;
+        return $this->con->getResults()[0][0];
     }
 }

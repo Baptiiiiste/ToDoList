@@ -57,7 +57,7 @@ class ModelUser{
      * @param Connection $con
      * @param string $login
      * @param string $password
-     * @return void
+     * @return bool
      * @throws Exception
      */
     public function createUser(Connection $con, string $login, string $password): bool
@@ -79,7 +79,5 @@ class ModelUser{
         }
         return true;
     }
-
-
 }
 
