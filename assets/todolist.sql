@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : dim. 11 déc. 2022 à 17:41
+-- Généré le : jeu. 15 déc. 2022 à 07:03
 -- Version du serveur : 5.7.36
 -- Version de PHP : 7.4.26
 
@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS `listtask` (
   `owner` varchar(50) COLLATE utf8_bin DEFAULT NULL,
   PRIMARY KEY (`id`,`visibility`),
   KEY `owner` (`owner`)
-) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=59 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Déchargement des données de la table `listtask`
@@ -44,7 +44,13 @@ CREATE TABLE IF NOT EXISTS `listtask` (
 INSERT INTO `listtask` (`id`, `name`, `visibility`, `owner`) VALUES
 (50, 'School', 1, NULL),
 (51, 'House', 0, 'loris'),
-(52, 'Homework', 0, 'baptiste');
+(52, 'Homework', 0, 'baptiste'),
+(53, 'Christmas gift', 1, NULL),
+(54, 'Holidays', 1, NULL),
+(55, 'Shopping', 1, NULL),
+(56, 'Music', 1, NULL),
+(57, 'Game', 1, NULL),
+(58, 'Party', 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -61,18 +67,25 @@ CREATE TABLE IF NOT EXISTS `task` (
   `listTask` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `listTask` (`listTask`)
-) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
 -- Déchargement des données de la table `task`
 --
 
 INSERT INTO `task` (`id`, `name`, `description`, `done`, `listTask`) VALUES
-(50, 'PHP', 'Best course', 0, 50),
 (51, 'Cook', 'Make pasta', 0, 51),
 (52, 'Housework', 'Clean the floor', 1, 51),
 (53, 'Maths', 'Ex 2 page 62', 0, 52),
-(54, 'English', 'Ex 5 page 152', 0, 52);
+(54, 'English', 'Ex 5 page 152', 0, 52),
+(55, 'PHP', 'Best course', 0, 50),
+(56, 'Jean', 'Smartphone', 0, 53),
+(57, 'Bob', 'Smartwatch', 1, 53),
+(58, 'Bob', 'Shoes', 0, 53),
+(59, 'Car', 'Repair tail light', 1, 54),
+(60, 'Blazor', 'Minecraft project', 0, 50),
+(61, 'Cake', 'Make a chocolate', 1, 58),
+(62, 'Carrefour Market', 'Bread', 0, 55);
 
 -- --------------------------------------------------------
 
